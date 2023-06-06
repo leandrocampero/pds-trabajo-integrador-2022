@@ -1,0 +1,8 @@
+{
+  "[latex]": {
+    "editor.formatOnSave": true
+  },
+  "[matlab]": {
+    "editor.formatOnSave": false
+  }
+}

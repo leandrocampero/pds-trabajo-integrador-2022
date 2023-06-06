@@ -1,0 +1,61 @@
+\documentclass{report}
+
+% Preamble
+\usepackage[spanish]{babel} % Paquete para utilizar el idioma español
+\usepackage[utf8]{inputenc} % Codificación de caracteres UTF-8
+\usepackage{setspace} % Para ajustar el espaciado entre líneas
+\usepackage{titlesec} % Para personalizar los encabezados de capítulos y secciones
+\usepackage{lipsum} % Para generar texto ficticio, puedes eliminar esta línea
+
+% Configuración de página
+\setlength{\parindent}{0pt} % Deshabilitar sangría al inicio de párrafos
+\setlength{\parskip}{1em} % Establecer espaciado entre párrafos
+
+% Personalizaciones
+\titleformat{\chapter}[display]
+{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{-50pt}{40pt} % Ajustar espaciado antes y después de los encabezados de capítulo
+
+% Comienza el documento
+\begin{document}
+
+% Página de título
+\title{Título de tu tesis}
+\author{Tú Nombre}
+\date{\today}
+\maketitle
+
+% Resumen
+\begin{abstract}
+  Aquí va el resumen.
+\end{abstract}
+
+% Índice
+\tableofcontents
+
+% Capítulos
+\chapter{Introducción}
+\section{Antecedentes}
+Aquí comienza tu capítulo de introducción.
+
+\chapter{Revisión de literatura}
+\section{Estudios anteriores}
+Este capítulo contiene tu revisión de literatura.
+
+\chapter{Metodología}
+\section{Diseño de investigación}
+Aquí explicas tu metodología de investigación.
+
+% Añade más capítulos y secciones según sea necesario
+
+% Conclusiones
+\chapter{Conclusiones}
+\section{Resumen de resultados}
+Tu capítulo de conclusiones comienza aquí.
+
+% Bibliografía
+\begin{thebibliography}{}
+  % Incluye tus referencias aquí
+\end{thebibliography}
+
+\end{document}
