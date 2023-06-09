@@ -1,0 +1,51 @@
+
+% Header y footer
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Procesamiento Digital de Señales}
+\rhead{Trabajo Integrador}
+\lfoot{Boeri - Campero - Villafañe | Ingeniería en Computación}
+\rfoot{\thepage}
+
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \lhead{Procesamiento Digital de Señales}
+  \rhead{Trabajo Integrador}
+  \lfoot{Boeri - Campero - Villafañe | Ingeniería en Computación}
+  \rfoot{\thepage}
+}
+
+\fancyhfoffset[R]{0pt} % Ajusta el ancho del encabezado
+\fancyhfoffset[L]{0pt} % Ajusta el ancho del pie de página
+
+\newgeometry{
+  top=1.25in,
+  bottom=1in,
+  outer=0.75in,
+  inner=0.75in,
+}
+
+
+% Configuración de página
+\setlength{\parindent}{0pt} % Deshabilitar sangría al inicio de párrafos
+\setlength{\parskip}{1em} % Establecer espaciado entre párrafos
+
+% Personalizaciones
+\titleformat{\chapter}[display]
+{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{0pt}{40pt} % Ajustar espaciado antes y después de los encabezados de capítulo
+
+\renewcommand{\normalsize}{\fontsize{14}{18}\selectfont}
+
+\newcommand{\titulo}{Sistema de Transmisión AM con Codificación DTMF}
+\newcommand{\subtitulo}{Informe de Trabajo Integrador}
+\newcommand{\materia}{Procesamiento Digital de Señales}
+\newcommand{\departamento}{Cátedra de Procesamiento de Señales}
+\newcommand{\unidadacademica}{Facultad de Ciencias Exactas y Tecnología}
+\newcommand{\universidad}{Universidad Nacional de Tucumán}
+\newcommand{\autores}{
+  Boeri, Benjamin \\
+  Campero, Leandro \\
+  Villafañe, Cristian
+}
+\newcommand{\fecha}{\today}

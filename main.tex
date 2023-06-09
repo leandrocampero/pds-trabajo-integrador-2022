@@ -1,4 +1,4 @@
-\documentclass{report}
+\documentclass[12pt]{report}
 
 % Preamble
 \usepackage[spanish]{babel} % Paquete para utilizar el idioma español
@@ -6,24 +6,20 @@
 \usepackage{setspace} % Para ajustar el espaciado entre líneas
 \usepackage{titlesec} % Para personalizar los encabezados de capítulos y secciones
 \usepackage{lipsum} % Para generar texto ficticio, puedes eliminar esta línea
+\usepackage{enumitem} % Para enumerar items
+\usepackage[hidelinks]{hyperref} % Para generar los enlaces a las secciones correspondientes
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{microtype}
 
-% Configuración de página
-\setlength{\parindent}{0pt} % Deshabilitar sangría al inicio de párrafos
-\setlength{\parskip}{1em} % Establecer espaciado entre párrafos
-
-% Personalizaciones
-\titleformat{\chapter}[display]
-{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
-\titlespacing*{\chapter}{0pt}{-50pt}{40pt} % Ajustar espaciado antes y después de los encabezados de capítulo
+% Otras configuraciones del preámbulo
+\input{format.tex}
 
 % Comienza el documento
 \begin{document}
 
-% Página de título
-\title{Título de tu tesis}
-\author{Tú Nombre}
-\date{\today}
-\maketitle
+\include{chapters/portada}
 
 % Resumen
 \begin{abstract}
@@ -33,10 +29,11 @@
 % Índice
 \tableofcontents
 
-% Capítulos
-\chapter{Introducción}
-\section{Antecedentes}
-Aquí comienza tu capítulo de introducción.
+% Listado de figuras
+\listoffigures
+
+% Introduccion
+\include{chapters/introduccion}
 
 \chapter{Revisión de literatura}
 \section{Estudios anteriores}
