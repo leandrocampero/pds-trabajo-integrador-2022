@@ -1,4 +1,4 @@
-\documentclass[12pt, a4paper]{report}
+\documentclass[a4paper]{report}
 
 % Preamble
 \usepackage[spanish]{babel} % Paquete para utilizar el idioma español
@@ -13,6 +13,9 @@
 \usepackage{fancyhdr}
 \usepackage{microtype}
 \usepackage{hyperref}
+\usepackage{array}
+\usepackage{chngcntr}
+\usepackage{tocbibind}
 
 % Otras configuraciones del preámbulo
 \input{format.tex}
@@ -29,9 +32,6 @@
 
 % Índice
 \tableofcontents
-
-% Listado de figuras
-\listoffigures
 
 % Introduccion
 \include{chapters/introduccion}
@@ -55,5 +55,14 @@ Tu capítulo de conclusiones comienza aquí.
 \begin{thebibliography}{}
   % Incluye tus referencias aquí
 \end{thebibliography}
+
+% Listado de figuras
+\listoffigures
+
+% Listado de tablas
+\listoftables
+
+% Apendices
+\include{chapters/apendices}
 
 \end{document}

@@ -33,7 +33,6 @@
   inner=0.75in,
 }
 
-
 % Configuración de página
 \setlength{\parindent}{0pt} % Deshabilitar sangría al inicio de párrafos
 \setlength{\parskip}{1em} % Establecer espaciado entre párrafos
@@ -43,7 +42,15 @@
 {\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
 \titlespacing*{\chapter}{0pt}{0pt}{40pt} % Ajustar espaciado antes y después de los encabezados de capítulo
 
-\renewcommand{\normalsize}{\fontsize{14}{18}\selectfont}
+% Tamaño de fuente e interlineado
+\renewcommand{\normalsize}{\fontsize{12}{14}\selectfont}
+
+\counterwithout{table}{section} % Desvincular el contador de las tablas de las secciones
+\counterwithout{figure}{section} % Desvincular el contador de las figuras de las secciones
+\counterwithin{table}{chapter} % Vincular el contador de las tablas al contador de los capítulos
+\counterwithin{figure}{chapter} % Vincular el contador de las figuras al contador de los capítulos
+\setlength{\tabcolsep}{10pt} % Espaciado horizontal
+\setlength{\extrarowheight}{5pt} % Espaciado vertical
 
 \newcommand{\titulo}{Sistema de Transmisión AM con Codificación DTMF}
 \newcommand{\subtitulo}{Informe de Trabajo Integrador}

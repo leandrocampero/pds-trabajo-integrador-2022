@@ -18,7 +18,7 @@ teclado telefónico, con lo cual es posible
 enviar una codificación numérica por la
 línea telefónica.\\
 El modelo de trabajo está representado
-en la Figura \ref{fig:fig_intro_diagrama_bloques}, correspondientes al
+en la Figura \ref{fig:intro_diagrama_bloques}, correspondientes al
 Modulador y Demodulador AM, el canal
 de cable telefónico, y las etapas de
 codificación y decodificación DTMF.
@@ -27,7 +27,7 @@ codificación y decodificación DTMF.
   \centering
   \includegraphics[width=\linewidth]{images/intro_diagrama_general.png}
   \caption{Diagrama de bloques general}
-  \label{fig:fig_intro_diagrama_bloques}
+  \label{fig:intro_diagrama_bloques}
 \end{figure}
 
 \section{Objetivo}
@@ -41,16 +41,41 @@ envío de números (0-9) codificados
 en DTMF bajo modulación AM, y la
 detección del número enviado a la
 salida (uno número cada por vez).\\
-A modo de referencia, la tabla I,
+A modo de referencia, la Tabla \ref{tab:combinacion_tonos},
 muestra la combinación de tonos
 audibles asociados al conjunto
-numérico [2], y en el enlace indicado
+numérico, y en el enlace indicado
 se encuentra la información ampliada
 sobre la codificación DTMF.
 
+\begin{table}[htbp]
+  \centering
+  \label{tab:combinacion_tonos}
+  \begin{tabular}{|c|c|c|}
+    \hline
+    \textbf{Frecuencia Baja} & \textbf{Frecuencia Alta} & \textbf{Digito} \\
+    \hline
+    697                      & 1209                     & 1               \\ \hline
+    697                      & 1336                     & 2               \\ \hline
+    697                      & 1477                     & 3               \\ \hline
+    770                      & 1209                     & 4               \\ \hline
+    770                      & 1336                     & 5               \\ \hline
+    770                      & 1477                     & 6               \\ \hline
+    852                      & 1209                     & 7               \\ \hline
+    852                      & 1336                     & 8               \\ \hline
+    852                      & 1477                     & 9               \\ \hline
+    941                      & 1336                     & 0               \\
+    \hline
+  \end{tabular}
+  \caption{Combinación de tonos audibles}
+\end{table}
+
 \section{Enunciado}
 \begin{enumerate}[label=\alph*)]
-  \item A nivel simulación se deberán sintetizar los tonos asociados a cada digito numérico seleccionando la frecuencia de muestreo Fs apropiada (Teorema de Nyquist-Shannon).
+  \item A nivel simulación se deberán sintetizar
+        los tonos asociados a cada digito
+        numérico seleccionando la frecuencia
+        de muestreo Fs apropiada (Teorema de Nyquist-Shannon).
   \item El demodulador DTMF deberá ser
         implementado mediante filtros
         digitales pasa bandas, con un
