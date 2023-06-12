@@ -8,3 +8,11 @@
 *.out
 *.lot
 *.ptc
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls
+*.glsdefs
+*.ist

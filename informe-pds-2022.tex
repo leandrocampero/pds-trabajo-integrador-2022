@@ -18,6 +18,8 @@
 \usepackage{tocbibind}
 \usepackage{array}
 \usepackage{cellspace}
+\usepackage{amsmath}
+\usepackage[acronym]{glossaries}
 
 % Otras configuraciones del preámbulo
 \input{format.tex}
@@ -28,9 +30,7 @@
 \include{chapters/portada}
 
 % Resumen
-\begin{abstract}
-  Aquí va el resumen.
-\end{abstract}
+\include{chapters/resumen}
 
 % Índice
 \tableofcontents
@@ -38,9 +38,8 @@
 % Introduccion
 \include{chapters/introduccion}
 
-\chapter{Revisión de literatura}
-\section{Estudios anteriores}
-Este capítulo contiene tu revisión de literatura.
+% Desarrollo
+\include{chapters/desarrollo}
 
 \chapter{Metodología}
 \section{Diseño de investigación}
@@ -58,11 +57,16 @@ Tu capítulo de conclusiones comienza aquí.
   % Incluye tus referencias aquí
 \end{thebibliography}
 
+% Glosario: Acrónimos
+\printglossaries
+\addcontentsline{toc}{chapter}{Siglas}
+
 % Listado de figuras
 \listoffigures
 
 % Listado de tablas
 \listoftables
+
 
 % Apendices
 \include{chapters/apendices}
