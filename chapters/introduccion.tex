@@ -1,7 +1,7 @@
-% Capítulos
+% Capítulo 1
 \chapter{Introducción}
 \section{Problema propuesto}
-La modulación en amplitud (AM) [1],
+La modulación en amplitud (AM),
 permite la transmisión de una señal de
 baja frecuencia superpuesta a una onda
 de alta frecuencia. Este sistema de
@@ -33,7 +33,7 @@ codificación y decodificación DTMF.
 \section{Objetivo}
 El objetivo principal de este proyecto
 integrador es la implementación del
-sistema mostrado en la figura 1,
+sistema mostrado en la Figura \ref{fig:intro_diagrama_bloques},
 utilizando MATLAB, SIMULINK, o la
 combinación de ambos recursos de
 modelado computacional, para el
@@ -41,7 +41,7 @@ envío de números (0-9) codificados
 en DTMF bajo modulación AM, y la
 detección del número enviado a la
 salida (uno número cada por vez).\\
-A modo de referencia, la Tabla \ref{tab:combinacion_tonos},
+A modo de referencia, el Cuadro \ref{tab:combinacion_tonos},
 muestra la combinación de tonos
 audibles asociados al conjunto
 numérico, y en el enlace indicado
@@ -50,24 +50,24 @@ sobre la codificación DTMF.
 
 \begin{table}[htbp]
   \centering
-  \label{tab:combinacion_tonos}
-  \begin{tabular}{|c|c|c|}
+  \begin{tabular}{|Sc|Sc|Sc|Sc|}
     \hline
-    \textbf{Frecuencia Baja} & \textbf{Frecuencia Alta} & \textbf{Digito} \\
+    \textbf{Frecuencia Baja} & \textbf{Frecuencia Alta} & \textbf{Digito} & \textbf{Frecuencia Final} \\
     \hline
-    697                      & 1209                     & 1               \\ \hline
-    697                      & 1336                     & 2               \\ \hline
-    697                      & 1477                     & 3               \\ \hline
-    770                      & 1209                     & 4               \\ \hline
-    770                      & 1336                     & 5               \\ \hline
-    770                      & 1477                     & 6               \\ \hline
-    852                      & 1209                     & 7               \\ \hline
-    852                      & 1336                     & 8               \\ \hline
-    852                      & 1477                     & 9               \\ \hline
-    941                      & 1336                     & 0               \\
+    697                      & 1209                     & 1               & 1906                      \\ \hline
+    697                      & 1336                     & 2               & 2033                      \\ \hline
+    697                      & 1477                     & 3               & 2174                      \\ \hline
+    770                      & 1209                     & 4               & 1979                      \\ \hline
+    770                      & 1336                     & 5               & 2106                      \\ \hline
+    770                      & 1477                     & 6               & 2247                      \\ \hline
+    852                      & 1209                     & 7               & 2061                      \\ \hline
+    852                      & 1336                     & 8               & 2188                      \\ \hline
+    852                      & 1477                     & 9               & 2329                      \\ \hline
+    941                      & 1336                     & 0               & 2277                      \\
     \hline
   \end{tabular}
-  \caption{Combinación de tonos audibles}
+  \caption{Combinación de tonos audibles (medido en [Hz])}
+  \label{tab:combinacion_tonos}
 \end{table}
 
 \section{Enunciado}
@@ -101,7 +101,7 @@ sobre la codificación DTMF.
         telefónico de cobre tipo AWG-24,
         por ejemplo, supera este ancho de
         banda a 1Mz en distancias
-        inferiores a 200 Mts [3].
+        inferiores a 200 Mts.
 \end{enumerate}
 
 \section{Lineamientos Generales}
@@ -111,7 +111,7 @@ sobre la codificación DTMF.
   \item Se deberán indicar el paso a paso para el diseño de los filtros digitales utilizados
         en las diferentes etapas.
   \item El criterio de selección para el filtro analógico representativo del canal ( Bessel,
-        Butterworth, etc.) [4][5], y el método de transformación analógico a discreto escogido,
+        Butterworth, etc.), y el método de transformación analógico a discreto escogido,
         brindando una gráfica comparativa de la respuesta en frecuencia resultantes en ambos
         planos (Laplace y Z).
   \item Se pide 3 aplicaciones posibles del sistema desarrollado en aplicaciones de tele

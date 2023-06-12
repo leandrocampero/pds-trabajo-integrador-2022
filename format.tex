@@ -49,8 +49,10 @@
 \counterwithout{figure}{section} % Desvincular el contador de las figuras de las secciones
 \counterwithin{table}{chapter} % Vincular el contador de las tablas al contador de los capítulos
 \counterwithin{figure}{chapter} % Vincular el contador de las figuras al contador de los capítulos
+
 \setlength{\tabcolsep}{10pt} % Espaciado horizontal
-\setlength{\extrarowheight}{5pt} % Espaciado vertical
+\setlength\cellspacetoplimit{10pt}
+\setlength\cellspacebottomlimit{10pt}
 
 \newcommand{\titulo}{Sistema de Transmisión AM con Codificación DTMF}
 \newcommand{\subtitulo}{Informe de Trabajo Integrador}
