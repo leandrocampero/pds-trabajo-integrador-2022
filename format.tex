@@ -1,3 +1,9 @@
+%================================================%
+%                                                %
+%              Portada y meta datos              %
+%                                                %
+%================================================%
+
 \hypersetup{
   pdftitle={Sistema de Transmisión AM con Codificación DTMF},
   pdfauthor={Boeri, Benjamin; Campero, Leandro; Villafañe, Cristian},
@@ -7,7 +13,25 @@
   pdfcreator={pdfLaTeX}
 }
 
-% Header y footer
+\newcommand{\titulo}{Sistema de Transmisión AM con Codificación DTMF}
+\newcommand{\subtitulo}{Informe de Trabajo Integrador}
+\newcommand{\materia}{Procesamiento Digital de Señales}
+\newcommand{\carrera}{Ingeniería en Computación}
+\newcommand{\unidadacademica}{Facultad de Ciencias Exactas y Tecnología}
+\newcommand{\universidad}{Universidad Nacional de Tucumán}
+\newcommand{\autores}{
+  Boeri, Benjamin \\
+  Campero, Leandro \\
+  Villafañe, Cristian
+}
+\newcommand{\fecha}{\today}
+
+%================================================%
+%                                                %
+%           Encabezado y Pié de página           %
+%                                                %
+%================================================%
+
 \pagestyle{fancy}
 \fancyhf{}
 \lhead{Procesamiento Digital de Señales}
@@ -23,8 +47,11 @@
   \rfoot{\thepage}
 }
 
-\fancyhfoffset[R]{0pt} % Ajusta el ancho del encabezado
-\fancyhfoffset[L]{0pt} % Ajusta el ancho del pie de página
+%================================================%
+%                                                %
+%            Configuración de página             %
+%                                                %
+%================================================%
 
 \newgeometry{
   top=1.25in,
@@ -33,40 +60,79 @@
   inner=0.75in,
 }
 
-% Configuración de página
+\setmainfont{Times New Roman} % Fuente del documento
+\renewcommand{\normalsize}{\fontsize{12}{14}\selectfont} % Tamaño de fuente e interlineado
 \setlength{\parindent}{0pt} % Deshabilitar sangría al inicio de párrafos
-\setlength{\parskip}{10pt} % Establecer espaciado entre párrafos
+\setlength{\parskip}{5pt} % Establecer espaciado entre párrafos
 
-% Personalizaciones
+\fancyhfoffset[R]{0pt} % Ajusta el ancho del encabezado
+\fancyhfoffset[L]{0pt} % Ajusta el ancho del pie de página
+
+% Personalizar titulos
 \titleformat{\chapter}[display]
-{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+{\normalfont\huge\bfseries}
+{\chaptertitlename\ \thechapter}{20pt}{\Huge}
 \titlespacing*{\chapter}{0pt}{0pt}{40pt} % Ajustar espaciado antes y después de los encabezados de capítulo
 
-% Tamaño de fuente e interlineado
-\renewcommand{\normalsize}{\fontsize{12}{14}\selectfont}
+% Quitar quiebre de palabras
+\tolerance=1
+\emergencystretch=\maxdimen
+\hyphenpenalty=1000
+\hbadness=1000
 
 \counterwithout{table}{section} % Desvincular el contador de las tablas de las secciones
 \counterwithout{figure}{section} % Desvincular el contador de las figuras de las secciones
 \counterwithin{table}{chapter} % Vincular el contador de las tablas al contador de los capítulos
 \counterwithin{figure}{chapter} % Vincular el contador de las figuras al contador de los capítulos
 
+%================================================%
+%                                                %
+%                     Tablas                     %
+%                                                %
+%================================================%
+
 \setlength{\tabcolsep}{10pt} % Espaciado horizontal
-\setlength\cellspacetoplimit{10pt} % Espaciado Superior
-\setlength\cellspacebottomlimit{10pt} % Espaciado Inferior
+\setlength\cellspacetoplimit{7pt} % Espaciado Superior
+\setlength\cellspacebottomlimit{7pt} % Espaciado Inferior
+
+%================================================%
+%                                                %
+%            Bloques de código fuente            %
+%                                                %
+%================================================%
+
+\definecolor{lightbluegray}{HTML}{eeeeee} % Define el color de fondo
+\lstset{
+  backgroundcolor=\color{lightbluegray}, % Establece el color de fondo
+  basicstyle=\fontsize{10}{12}\ttfamily,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{gray}\itshape,
+  numberstyle=\color{gray},
+  stringstyle=\color{orange},
+  captionpos=b,
+  numbers=left,
+  breaklines=true,
+  frame=single,
+  keepspaces=true,
+  showspaces=false,
+  showstringspaces=false,
+  numbersep=8pt,
+  xleftmargin=16pt,
+  aboveskip=24pt
+}
+\renewcommand\lstlistingname{Código fuente}
+\renewcommand\lstlistlistingname{Índice de bloques de código fuente}
+
+%================================================%
+%                                                %
+%                   Acrónimos                    %
+%                                                %
+%================================================%
 
 \newacronym{dtfm}{DTFM}{Doble Tonos Múltiples Frecuencias}
 \newacronym{am}{AM}{Amplitud Modulada}
+\newacronym{ab}{AB}{Ancho de Banda}
+\newacronym{fs}{$f_s$}{Frecuencia de Muestreo}
+\newacronym{fc}{$f_c$}{Frecuencia de Corte}
+\newacronym{fa}{$f_a$}{Frecuencia de Atenuación o Paso}
 \makeglossaries
-
-\newcommand{\titulo}{Sistema de Transmisión AM con Codificación DTMF}
-\newcommand{\subtitulo}{Informe de Trabajo Integrador}
-\newcommand{\materia}{Procesamiento Digital de Señales}
-\newcommand{\carrera}{Ingeniería en Computación}
-\newcommand{\unidadacademica}{Facultad de Ciencias Exactas y Tecnología}
-\newcommand{\universidad}{Universidad Nacional de Tucumán}
-\newcommand{\autores}{
-  Boeri, Benjamin \\
-  Campero, Leandro \\
-  Villafañe, Cristian
-}
-\newcommand{\fecha}{\today}

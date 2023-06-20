@@ -1,6 +1,8 @@
 \documentclass[a4paper]{report}
 
-% Preamble
+% Paquetes
+% CUIDADO: alterar el orden puede generar errores inesperados
+% ============================================================================ %
 \usepackage[spanish]{babel} % Paquete para utilizar el idioma español
 \usepackage[utf8]{inputenc} % Codificación de caracteres UTF-8
 \usepackage{setspace} % Para ajustar el espaciado entre líneas
@@ -8,18 +10,21 @@
 \usepackage{lipsum} % Para generar texto ficticio, puedes eliminar esta línea
 \usepackage{enumitem} % Para enumerar items
 \usepackage[hidelinks]{hyperref} % Para generar los enlaces a las secciones correspondientes
-\usepackage{geometry}
-\usepackage{graphicx}
-\usepackage{fancyhdr}
-\usepackage{microtype}
-\usepackage{hyperref}
-\usepackage{array}
-\usepackage{chngcntr}
-\usepackage{tocbibind}
-\usepackage{array}
-\usepackage{cellspace}
-\usepackage{amsmath}
-\usepackage[acronym]{glossaries}
+\usepackage{geometry} % Permite ajustar y modificar los márgenes y dimensiones de la página en LaTeX.
+\usepackage{graphicx} % Proporciona comandos para incluir y manipular imágenes en LaTeX.
+\usepackage{fancyhdr} % Permite personalizar el encabezado y pie de página en LaTeX.
+\usepackage{microtype} % Mejora la apariencia del texto ajustando el espaciado entre caracteres y palabras.
+\usepackage{chngcntr} % Permite cambiar el formato y numeración de los contadores en LaTeX.
+\usepackage{tocbibind} % Controla la inclusión de elementos como la tabla de contenido, lista de figuras y lista de tablas en el índice general.
+\usepackage{array} % Amplía las capacidades de las tablas en LaTeX, permitiendo personalizar el formato y comportamiento de las celdas.
+\usepackage{cellspace} % Proporciona espacios adicionales en las celdas de las tablas para mejorar su apariencia.
+\usepackage[acronym]{glossaries} % Facilita la creación y gestión de glosarios y listas de acrónimos en LaTeX.
+\usepackage{float} % Proporciona mejoras en el posicionamiento de objetos flotantes, como figuras y tablas, en LaTeX.
+\usepackage{fontspec} % Permite la selección y configuración de fuentes tipográficas en LaTeX.
+\usepackage{amsmath} % Mejora la calidad tipográfica de las fórmulas matemáticas y proporciona comandos y entornos adicionales.
+\usepackage{xcolor} % Amplía las capacidades de color en LaTeX, permitiendo el uso de colores personalizados.
+\usepackage{listings} % Facilita la inclusión y formateo de código fuente en documentos LaTeX.
+% ============================================================================ %
 
 % Otras configuraciones del preámbulo
 \input{format.tex}
@@ -58,6 +63,10 @@
 
 % Listado de tablas
 \listoftables
+
+% Listado de bloques de código
+\lstlistoflistings
+\addcontentsline{toc}{chapter}{Índice de bloques de código fuente}
 
 % Apendices
 \include{chapters/apendices}
