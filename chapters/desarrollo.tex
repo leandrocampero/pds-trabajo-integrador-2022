@@ -5,15 +5,13 @@ El análisis de un filtro digital es el proceso de determinar la respuesta de un
 
 En el contexto de la problemática comentada en el capítulo anterior, disponemos de 10 señales a analizar las cuales se corresponden con los digitos del 0 al 9. De esto concluímos que se necesitan 10 bandas de paso para filtrar las 10 señales. Dada la cercanía de las frencuencias centrales por dígito (ver Cuadro \ref{tab:combinacion_tonos}) se propone un \gls{ab} de 20Hz por frecuencia. De esta forma la distribución bandas de paso queda determinado por el Cuadro \ref{tab:anchos_de_banda}.
 
-Los límites de frecuencia de cada \gls{ab} corresponden a los puntos de media potencia (0.707) del valor máximo de
-transferencia. Además, establecemos como criterio de diseño que debe atenuar a 20dB en la banda de transición o paso.
+Los límites de frecuencia de cada \gls{ab} corresponden a los puntos de media potencia (0.707) del valor máximo de transferencia. Además, establecemos como criterio de diseño que debe atenuar a 20dB en la banda de transición o paso.
 
 \begin{table}[H]
   \centering
   \begin{tabular}{|Sc|Sc|Sc|Sc|}
     \hline
-    \textbf{Digito} & \textbf{$f_{c1}$} & \textbf{$f_0$} & \textbf{$f_{c2}$} \\
-    \hline
+    \textbf{Digito} & \textbf{$f_{c1}$} & \textbf{$f_0$} & \textbf{$f_{c2}$} \\ \hline
     1               & 1896              & 1906           & 1916              \\ \hline
     4               & 1969              & 1979           & 1989              \\ \hline
     2               & 2023              & 2033           & 2043              \\ \hline
@@ -56,8 +54,7 @@ Por cuestiones de diseño tomamos $f_s = 5000[Hz]$. Además también debemos est
   \centering
   \begin{tabular}{|Sc|Sc|}
     \hline
-    \textbf{Magnitud} & \textbf{Valor} \\
-    \hline
+    \textbf{Magnitud} & \textbf{Valor} \\ \hline
     $f_0$             & 2188[Hz]       \\ \hline
     \gls{fc}          & 2198[Hz]       \\ \hline
     \gls{fa}          & 2022[Hz]       \\ \hline
@@ -93,8 +90,7 @@ Ahora necesitamos obtener el orden ($n$) del filtro. A partir de la Ecuación \r
 Como se puede obervar en el resultado de la Ecuación \ref{eq:orden_filtro}, el orden es de aproximadamente 81 (porque tiene que ser un número entero positivo). Dado el alto orden que tiene este filtro, el cálculo analítico de los valores se hace sumamente complejo, debido a este problema procederemos a realizar de manera ilustrativa el cálculo para un filtro de \textbf{orden 2}.
 
 \section{Prototipo}
-Para el desarrollo analítico del prototipo consideraremos un filtro pasa-bajos de orden 2 (justificado en la sección anterior). Las frecuencias incolucradas se describen en el Cuadro \ref{tab:caracteristicas_filtro_pb}. Como se trata un filtro Butterworth, los polos estables se encontrarán distribuidos sobre el círculo de Butterworth (circulo unitario). Aquellos valores que se encuentren por fuera del mismo, serán los polos inestables. Para este análisis solo consideraremos los estables. Por otro lado, obtendremos los ceros
-ubicados en z = -1 como se muestra en la Figura \ref{fig:circulo_butterworth}.
+Para el desarrollo analítico del prototipo consideraremos un filtro pasa-bajos de orden 2 (justificado en la sección anterior). Las frecuencias incolucradas se describen en el Cuadro \ref{tab:caracteristicas_filtro_pb}. Como se trata un filtro Butterworth, los polos estables se encontrarán distribuidos sobre el círculo de Butterworth (circulo unitario). Aquellos valores que se encuentren por fuera del mismo, serán los polos inestables. Para este análisis solo consideraremos los estables. Por otro lado, obtendremos los ceros ubicados en z = -1 como se muestra en la Figura \ref{fig:circulo_butterworth}.
 
 \begin{figure}[ht]
   \centering
@@ -123,8 +119,7 @@ Para obtener los polos correspondientes al plano z utilizamos la función transf
   \centering
   \begin{tabular}{|Sc|Sc|Sc|Sc|Sc|}
     \hline
-    \textbf{$m$} & \textbf{$u_m$} & \textbf{$v_m$} & \textbf{Modulo} & \textbf{Argumento} \\
-    \hline
+    \textbf{$m$} & \textbf{$u_m$} & \textbf{$v_m$} & \textbf{Modulo} & \textbf{Argumento} \\ \hline
     0            & -1,259         & 0,355i         & 1,308           & 2,867              \\ \hline
     1            & -0,736         & 0,208i         & 0,765           & 2,866              \\ \hline
     2            & -0,736         & -0,208i        & 0,765           & -2,866             \\ \hline
