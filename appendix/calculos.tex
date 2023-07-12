@@ -1,0 +1,23 @@
+\chapter{Cálculos algebráicos}
+\section{Diseño de filtro digital H(z)}
+
+\begin{equation}
+  \begin{split}
+    H(\textrm{z}) & = \frac{BW \left(\frac{2}{T}\frac{(1-\textrm{z}^{-1})}{(1+\textrm{z}^{-1})}\right)}{\left(\frac{2}{T}\frac{(1-\textrm{z}^{-1})}{(1+\textrm{z}^{-1})}\right)^2 + BW \left(\frac{2}{T}\frac{(1-\textrm{z}^{-1})}{(1+\textrm{z}^{-1})}\right) + \Omega_0^2} \\
+    H(\textrm{z}) & = \frac{BW \left(\frac{2}{T}\frac{(1-\textrm{z}^{-1})}{(1+\textrm{z}^{-1})}\right)}{\frac{4}{T^2}\frac{(1-\textrm{z}^{-1})^2}{(1+\textrm{z}^{-1})^2} + BW \left(\frac{2}{T}\frac{(1-\textrm{z}^{-1})}{(1+\textrm{z}^{-1})}\right) + \Omega_0^2}\ \frac{(1+\textrm{z}^{-1})^2}{(1+\textrm{z}^{-1})^2} \\
+    H(\textrm{z}) & = \frac{BW \frac{2}{T} (1-\textrm{z}^{-1}) (1+\textrm{z}^{-1})}{\frac{4}{T^2} (1-\textrm{z}^{-1})^2+ BW \frac{2}{T} (1-\textrm{z}^{-1}) (1+\textrm{z}^{-1}) + \Omega_0^2 (1+\textrm{z}^{-1})^2} \\
+    H(\textrm{z}) & = \frac{2 f_s \ BW  (1-\textrm{z}^{-1}) (1+\textrm{z}^{-1})}{4f_s^2 (1-\textrm{z}^{-1})^2+ 2f_s\ BW (1-\textrm{z}^{-1}) (1+\textrm{z}^{-1}) + \Omega_0^2 (1+\textrm{z}^{-1})^2} \\
+    H(\textrm{z}) & = \frac{2 f_s \ BW  (1-\textrm{z}^{-2})}{4f_s^2 (1-2\textrm{z}^{-1}+\textrm{z}^{-2})+ 2f_s\ BW (1-\textrm{z}^{-2}) + \Omega_0^2 (1+2\textrm{z}^{-1}+\textrm{z}^{-2})} \\
+    H(\textrm{z}) & = \frac{2 f_s \ BW - 2 f_s \ BW\textrm{z}^{-2}}{\left( 4f_s^2 + 2f_s\ BW + \Omega_0^2 \right) + \left(-8f_s^2 + 2\Omega_0^2\right)\textrm{z}^{-1} + \left( 4f_s^2 - 2f_s\ BW + \Omega_0^2 \right)\textrm{z}^{-2}} \\
+    \text{Donde} & \\
+    \alpha & = 4f_s^2 + 2f_s\ BW + \Omega_0^2 \\
+    \beta & = 2\Omega_0^2 - 8f_s^2 \\
+    \gamma & = 4f_s^2 - 2f_s\ BW + \Omega_0^2 \\
+    \delta & = 2 f_s \ BW \\
+    \text{Luego} & \\
+    H(\textrm{z}) & = \frac{\delta - \delta \textrm{z}^{-2}}{\alpha + \beta\textrm{z}^{-1} + \gamma\textrm{z}^{-2}} \\
+    H(\textrm{z}) & = \frac{\frac{\delta}{\alpha} - \frac{\delta}{\alpha} \textrm{z}^{-2}}{1 + \frac{\beta}{\alpha} \textrm{z}^{-1} + \frac{\gamma}{\alpha} \textrm{z}^{-2}} \\
+    H(\textrm{z}) & = \frac{8,4953\times 10^{-3} - 8,4953\times 10^{-3} \textrm{z}^{-2}}{1 - 1,9732 \textrm{z}^{-1} + 0,9830 \textrm{z}^{-2}} \\
+  \end{split}
+  \label{eq:apendix_filtro_digital}
+\end{equation}

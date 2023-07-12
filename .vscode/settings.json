@@ -47,6 +47,8 @@
     "**/*.glsdefs": true,
     "**/*.ist": true,
     "**/*.xdv": true,
-    "**/*.lol": true
+    "**/*.lol": true,
+    "**/*.bbl": true,
+    "**/*.blg": true
   }
 }
