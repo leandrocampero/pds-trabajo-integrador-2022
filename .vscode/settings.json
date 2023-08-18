@@ -3,7 +3,7 @@
     "editor.formatOnSave": true
   },
   "[matlab]": {
-    "editor.formatOnSave": false
+    "editor.formatOnSave": true
   },
   "latex-workshop.latex.tools": [
     {

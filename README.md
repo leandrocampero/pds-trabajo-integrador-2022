@@ -12,6 +12,12 @@ Este repositorio es para realizar el informe del trabajo integrador utilizando V
 - Cuando se agregan entradas al glosario hay que ejecutar el comando `makeglossaries informe`
 - Cuando se agregan entradas a las referencias bibliográficas hay que ejecutar el comando `bibtex informe`
 
+## Matlab & Simulink
+
+- Para correr las simulaciones se necesita primero ejecutar el script `main.m` ya que genera los coeficientes de los filtros necesarios.
+- Luego de ejecutarlo, abrir el archivo `simulacion_selector.slx`, que es el contiene la simulación principal (por el momento).
+- Ejecutar la simulación y observar los resultados.
+
 ## Estructura
 
 - `images`: contiene las imagenes que van a ser catalogadas como figuras del informe

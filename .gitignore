@@ -20,3 +20,5 @@
 *.lol
 *.bbl
 *.blg
+*.slxc
+matlab/slprj/*
