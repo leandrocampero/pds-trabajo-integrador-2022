@@ -34,8 +34,8 @@ La matriz será un bloque lógico que devolverá el digito correspondiente en ba
 \end{figure}
 
 \section{Simulación}
-La simulación de este sistema, que es el objetivo de este proyecto, se logrará a través del uso de distintas herramientas dentro del software MATLAB. Estas herramientas son fdatool (para diseñar cada filtro del banco) y simulink (para realizar el estudio en el tiempo y frecuencia de las señales a través de cada bloque del sistema).
+La simulación de este sistema, que es el objetivo de este proyecto, se logrará a través del uso de distintas herramientas dentro del software MATLAB. Entre estas herramientas se encuentra simulink que sirve para realizar el estudio en el tiempo y frecuencia de las señales a través de cada bloque del sistema.
 
-Cada señal de entrada al sistema será simulada a través de generadores de sinusoidales, mientras que los filtros serán bloques que actuen en base a polinomios obtenidos anteriormente de fdatool. El resto de las herramientas serán provistas por simulink (sumadores, multiplicadores, analizadores de espectro, etc.)
+Cada señal de entrada al sistema será simulada a través de generadores de sinusoidales, mientras que los filtros serán bloques que actuen en base a polinomios obtenidos por librerías provistas por MATLAB. El resto de las herramientas serán provistas por simulink (sumadores, multiplicadores, analizadores de espectro, etc.)
 
 La razón de usar una herramienta para el diseño de los filtros es que estos se presumen de alto orden, lo cual es engorroso de calcular de manera analítica. Sin embargo, con el objetivo de comprender cómo es el diseño de filtros digitales, se explicará en el siguiente capítulo cómo es el proceso de diseño y análisis correspondiente.

@@ -136,4 +136,4 @@ Podemos calcular el orden del filtro pasa-bajo necesario para cumplir con esas c
   n        & = \frac{\log\left(10^{\frac{A_{dB}}{10}-1}\right)}{2\log\left(\frac{\Omega_a}{\Omega_c}\right)} = 40,95 \approx 41 \label{eq:orden_filtro_pb}
 \end{align}
 
-Con esto demostramos y concluímos que para obtener un filtro más preciso en la simulación, necesitamos que sea de mayor orden. Dado que el análisis es engorroso y debemos repetirlo por cada filtro del banco de filtros a diseñar, vamos a utilizar una herramienta de MATLAB llamada fdatool para obtener el filtro digital con el orden necesario para obtener los resultados esperados a partir de las especificaciones realizadas.
+Con esto demostramos y concluímos que para obtener un filtro más preciso en la simulación, necesitamos que sea de mayor orden. Dado que el análisis es engorroso y debemos repetirlo por cada filtro del banco de filtros a diseñar, vamos a utilizar librerías provistas por MATLAB para obtener el filtro digital con el orden necesario para garantizar (o aproximarse lo mayor posible) los resultados esperados a partir de las especificaciones realizadas.

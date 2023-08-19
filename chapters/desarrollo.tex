@@ -44,7 +44,46 @@ El bloque decodificador es el más complejo de todos, ya que este tiene la lógi
 
 
 \section{Diseño}
-Como mencionamos en la sección anterior, para poder implementar los filtros digitales del banco de filtros del bloque decodificador, necesitamos emplear la herramienta fdatool del MATLAB, ya que estos filtros serán de muy alto orden lo que es engorroso para el cálculo analítico. En la interfaz de la herramienta
+Como mencionamos en la sección anterior, para poder implementar los filtros digitales del banco de filtros (bloque decodificador) necesitamos librerías de MATLAB para generarlos, ya que estos filtros serán de alto orden lo que es engorroso para el cálculo analítico. Para hacer uso de estas librerías se crearon 2 \textit{scripts} con el objetivo de automatizar la generación de los filtros en base a parámetros de entrada. En el Código \ref{code:banco_decodificador} podemos ver que se encarga de calcular las frecuecias de corte (inferior y superior) para cada frecuencia central provista, bajo una determinada frecuencia de muestreo y orden específico, esto para el banco de filtros del decodificador. Luego en el Código \ref{code:algoritmo_principal} tenemos el algorítmo principal, el cual establece las especificaciones generales del sistema, llama a la función para crear el banco de filtros y además crea el resto de los filtros involucrados como el que representa el canal de transmición y el filtro para eleminar la portadora del espectro de trabajo (en la fase de demodulación).
+
+Se puede notar en el Código \ref{code:algoritmo_principal} que establecemos el orden de los filtros en 6 (para pasa-bajos y/o pasa-altos; se interpreta 12 para pasa-banda). Este valor arbitrario, contrario a los cálculos analíticos del capítulo anterior, es empírico; durante varias pruebas de simulación, los filtros pasa-banda de alto orden (20 aproximadamente) demostraban comportamientos inesperados y no concluyentes a la hora de filtrar señales específicas. Por eso, luego de varias pruebas encontramos que el orden 6 era suficiente para realizar la simulación con resultados favorables y realistas.
+
+
+
+\begin{figure}[H]
+  \lstinputlisting[
+    language=Octave,
+    caption={Banco Decodificador},
+    label={code:banco_decodificador}
+  ]{matlab/banco_decodificador.m}
+\end{figure}
+
+\begin{figure}[H]
+  \lstinputlisting[
+    language=Octave,
+    caption={Algorítmo principal},
+    label={code:algoritmo_principal}
+  ]{matlab/main.m}
+\end{figure}
+
+En base a los resultados obtenidos de los \textit{scripts} diseñamos el sistema completo, en los que cada bloque se alimenta de los datos resultantes. (Continuar que no queda nada)
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{images/modem.png}
+  \caption{Codificación, Modulación, Transmisión y Democulación}
+  \label{fig:bloques_modem}
+\end{figure}
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{images/codec.png}
+  \caption{Banco de filtros y Decodificador}
+  \label{fig:bloques_codec}
+\end{figure}
+
 
 \section{Especificaciones}
 
