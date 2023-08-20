@@ -38,55 +38,18 @@ A modo de referencia, el Cuadro \ref{tab:combinacion_tonos}, muestra la combinac
 
 \section{Enunciado}
 \begin{enumerate}[label=\alph*)]
-  \item A nivel simulación se deberán sintetizar
-        los tonos asociados a cada digito
-        numérico seleccionando una \gls{fs} apropiada (Teorema de Nyquist-Shannon).
-  \item El demodulador \gls{dtfm} deberá ser
-        implementado mediante filtros
-        digitales pasa bandas, con un
-        orden y respuestas apropiadas. El
-        modo de indicar cuál fue el digito
-        enviado queda a criterio del grupo
-        de trabajo.
-  \item Para el modelo de trasmisión AM
-        (enlace cableado) se deberán
-        establecer y sintetizar la frecuencia
-        de portadora $RF$ el índice de
-        modulación apropiados
-        (recordando que \gls{fs} es única en
-        todo el sistema).
-  \item El canal de transmisión se
-        corresponde al de un filtro
-        analógico (transformado a digital)
-        pasa banda con un rango de 300 Hz
-        a 3400 Hz, respuesta plana y orden
-        apropiado. Se considera el rango
-        útil asignado a la frecuencia
-        telefónica, aunque el cable
-        telefónico de cobre tipo AWG-24,
-        por ejemplo, supera este ancho de
-        banda a 1Mz en distancias
-        inferiores a 200 Mts.
+  \item A nivel simulación se deberán sintetizar los tonos asociados a cada digito numérico seleccionando una \gls{fs} apropiada (Teorema de Nyquist-Shannon).
+  \item El demodulador \gls{dtfm} deberá ser implementado mediante filtros digitales pasa bandas, con un orden y respuestas apropiadas. El modo de indicar cuál fue el digito enviado queda a criterio del grupo de trabajo.
+  \item Para el modelo de trasmisión AM (enlace cableado) se deberán establecer y sintetizar la frecuencia de portadora $RF$ el índice de modulación apropiados (recordando que \gls{fs} es única en todo el sistema).
+  \item El canal de transmisión se corresponde al de un filtro analógico (transformado a digital) pasa banda con un rango de 300 Hz a 3400 Hz, respuesta plana y orden apropiado. Se considera el rango útil asignado a la frecuencia telefónica, aunque el cable         telefónico de cobre tipo AWG-24, por ejemplo, supera este ancho de banda a 1Mz en distancias inferiores a 200 Mts.
 \end{enumerate}
 
 \section{Lineamientos Generales}
 \begin{enumerate}[label=\alph*)]
-  \item El grupo de trabajo deberá cumplir con las especificaciones del proyecto,
-        utilizando criterios de diseños justificados para cada bloque del sistema.
-  \item Se deberán indicar el paso a paso para el diseño de los filtros digitales utilizados
-        en las diferentes etapas.
-  \item El criterio de selección para el filtro analógico representativo del canal ( Bessel,
-        Butterworth, etc.), y el método de transformación analógico a discreto escogido,
-        brindando una gráfica comparativa de la respuesta en frecuencia resultantes en ambos
-        planos (Laplace y Z).
-  \item Se pide 3 aplicaciones posibles del sistema desarrollado en aplicaciones de tele
-        comando (por ejemplo, aplicación de sistema de riego por comando telefónico de
-        3 zonas), y como se imprentaría en la práctica (no el desarrollo, solo la propuesta).
-  \item Problema de análisis: para el caso de que ocurran fallos en el canal de comunicación
-        (por ejemplo, una atenuación en determinadas frecuencias), analizar la robustez del
-        código detector para al menos 3 zonas atenuadas de frecuencias diferentes. Utilizar
-        el código adjunto en Matlab para el diseño del canal con fallas. Justificar los
-        resultados.
-  \item Escribir el informe, Incluir conclusiones, observaciones y sugerencias sobre los
-        resultados obtenidos
+  \item El grupo de trabajo deberá cumplir con las especificaciones del proyecto, utilizando criterios de diseños justificados para cada bloque del sistema.
+  \item Se deberán indicar el paso a paso para el diseño de los filtros digitales utilizados en las diferentes etapas.
+  \item El criterio de selección para el filtro analógico representativo del canal (Bessel, Butterworth, etc.), y el método de transformación analógico a discreto escogido, brindando una gráfica comparativa de la respuesta en frecuencia resultantes en ambos planos (Laplace y Z).
+  \item Se pide 3 aplicaciones posibles del sistema desarrollado en aplicaciones de tele comando (por ejemplo, aplicación de sistema de riego por comando telefónico de 3 zonas), y como se imprentaría en la práctica (no el desarrollo, solo la propuesta).
+  \item Problema de análisis: para el caso de que ocurran fallos en el canal de comunicación (por ejemplo, una atenuación en determinadas frecuencias), analizar la robustez del código detector para al menos 3 zonas atenuadas de frecuencias diferentes. Utilizar el código adjunto en Matlab para el diseño del canal con fallas. Justificar los resultados.
+  \item Escribir el informe, Incluir conclusiones, observaciones y sugerencias sobre los resultados obtenidos
 \end{enumerate}

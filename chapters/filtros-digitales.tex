@@ -18,7 +18,6 @@ El pre-warping es un ajuste realizado a la \gls{fc} del filtro analógico antes 
   \label{eq:relacion_tangencial_frec_ang}
 \end{equation}
 
-
 \section{Diseño}
 Primero, se diseña el filtro analógico deseado utilizando un prototipo como el filtro Butterworth, Chebyshev o el Elíptico. En este caso usaremos el filtro Butterworth, que se caracteriza por tener una respuesta en frecuencia lo más plana y suave posible en la banda de paso, lo que significa que atenúa las frecuencias no deseadas de manera gradual y sin oscilaciones abruptas, como describre la Figura \ref{fig:diagrama_bode_pasa_bajos}.
 
@@ -80,11 +79,13 @@ El siguiente paso es encontrar función transferencia realizando la transformaci
 
 Para demostrar que este filtro diseñado es en realidad un pasa-banda que corta en las frecuencias angulares especificadas, utilizamos MATLAB para graficar la respuesta en frecuencia del mismo (Código \ref{code:respuesta_freq_analog}). En la Figura \ref{fig:respuesta_freq_analog} podemos ver que la respuesta en frecuencia es la esperada, en los puntos marcados aproximadamente en y(0,707) las frecuencias se aproximan a $\Omega_l$ y $\Omega_h$. Por lo tanto queda demostrado que el filtro analógico diseñado es realmente un pasa-banda.
 
-\lstinputlisting[
-  language=Octave,
-  caption={Graficar respuesta en frecuencia de Filtro Analógico},
-  label={code:respuesta_freq_analog}
-]{matlab/butter_analog_frec_resp.m}
+\begin{figure}[H]
+  \lstinputlisting[
+    language=Octave,
+    caption={Graficar respuesta en frecuencia de Filtro Analógico},
+    label={code:respuesta_freq_analog}
+  ]{matlab/butter_analog_frec_resp.m}
+\end{figure}
 
 \begin{figure}[H]
   \centering
@@ -105,11 +106,14 @@ Ahora que tenemos nuestro filtro analógico, el siguiente paso es transformarlo 
 
 Para demostrar que el filtro digital resultante funciona correctamente, utilizamos MATLAB para graficar la respuesta en frecuencia del mismo (ver Código \ref{code:respuesta_freq_digital}). En la Figura \ref{fig:respuesta_freq_digital} podemos ver que la respuesta en frecuencia es la esperada. En los puntos marcados aproximadamente en y(0,707) las frecuencias se aproximan a $f_l$ y $f_h$, que eran 60 [Hz] por debajo y por encima respectivamente de la frecuencia central 697 [Hz].
 
-\lstinputlisting[
-  language=Octave,
-  caption={Graficar respuesta en frecuencia de Filtro Digital},
-  label={code:respuesta_freq_digital}
-]{matlab/butter_digital_frec_resp.m}
+\begin{figure}[H]
+  \lstinputlisting[
+    language=Octave,
+    caption={Graficar respuesta en frecuencia de Filtro Digital},
+    label={code:respuesta_freq_digital}
+  ]{matlab/butter_digital_frec_resp.m}
+\end{figure}
+
 
 \begin{figure}[H]
   \centering
