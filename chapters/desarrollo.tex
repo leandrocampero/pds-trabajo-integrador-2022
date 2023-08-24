@@ -7,7 +7,7 @@ Estos bloques son en realidad bastante simples. Consta de la sumatoria de dos se
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=400pt]{images/diagramas-codificador-modulador.png}
+  \includegraphics[width=400pt]{images/desarrollo/cod_mod.png}
   \caption{Codificador y Modulador}
   \label{fig:bloques_cod_mod}
 \end{figure}
@@ -17,7 +17,7 @@ La transmisión será simulada a través de un filtro pasa-banda, estableciendo 
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=300pt]{images/diagramas-transmision.png}
+  \includegraphics[width=300pt]{images/desarrollo/canal.png}
   \caption{Transmisión}
   \label{fig:bloques_txs}
 \end{figure}
@@ -27,7 +27,7 @@ Para demodular la señal, basta con realizar nuevamente el producto con la seña
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=350pt]{images/diagramas-demodulador.png}
+  \includegraphics[width=350pt]{images/desarrollo/demod.png}
   \caption{Transmisión}
   \label{fig:bloques_demod}
 \end{figure}
@@ -37,7 +37,7 @@ El bloque decodificador es el más complejo de todos, ya que este tiene la lógi
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=350pt]{images/diagramas-decodificador-matriz.png}
+  \includegraphics[width=350pt]{images/desarrollo/decod.png}
   \caption{Decodificador}
   \label{fig:bloques_decod}
 \end{figure}
@@ -52,12 +52,12 @@ Se puede notar en el Código \ref{code:algoritmo_principal} que establecemos el 
     language=Octave,
     caption={Banco Decodificador},
     label={code:banco_decodificador}
-  ]{matlab/banco_decodificador.m}
+  ]{matlab/desarrollo/banco_decodificador.m}
 \end{figure}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{images/resp_frec_banco_filtros.png}
+  \includegraphics[width=\linewidth]{images/desarrollo/freq_filtros.png}
   \caption{Respuesta en frecuencia del Banco de Filtros}
   \label{fig:banco_filtros_resp_frec}
 \end{figure}
@@ -77,14 +77,14 @@ La segunda parte del sistema comprende la decodificación \gls{dtfm} a través d
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{images/modem.png}
+  \includegraphics[width=\linewidth]{images/desarrollo/modem.png}
   \caption{Codificación, Modulación, Transmisión y Demodulación}
   \label{fig:bloques_modem}
 \end{figure}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{images/codec.png}
+  \includegraphics[width=\linewidth]{images/desarrollo/codec.png}
   \caption{Banco de filtros y Decodificador}
   \label{fig:bloques_codec}
 \end{figure}

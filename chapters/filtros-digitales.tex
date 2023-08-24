@@ -6,7 +6,7 @@ Es importante tener en cuenta que la transformación bilineal introduce distorsi
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=300pt]{images/diagramas-distorsion-frecuencia.png}
+  \includegraphics[width=300pt]{images/filtros-digitales/distorsion.png}
   \caption{Distorsion de frecuencia introducida por la Transformación Bilineal}
   \label{fig:distorsion_frecuencia_angular}
 \end{figure}
@@ -30,7 +30,7 @@ El filtro de Butterworth más típico es el filtro pasa bajo de primer orden, el
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=300pt]{images/diagramas-bode-filtro-lp.png}
+  \includegraphics[width=300pt]{images/filtros-digitales/bode-lp.png}
   \caption{Respuesta en frecuencia de un filtro pasa-bajos}
   \label{fig:diagrama_bode_pasa_bajos}
 \end{figure}
@@ -39,7 +39,7 @@ Según \cite{rabiner1995theory} existen dos enfoques distintos para el diseño d
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{images/diagramas-enfoques-diseno.drawio.png}
+  \includegraphics[width=\linewidth]{images/filtros-digitales/enfoques.png}
   \caption{Enfoques para el diseño de un filtro digital}
   \label{fig:enfoques_diseno}
 \end{figure}
@@ -84,12 +84,12 @@ Para demostrar que este filtro diseñado es en realidad un pasa-banda que corta 
     language=Octave,
     caption={Graficar respuesta en frecuencia de Filtro Analógico},
     label={code:respuesta_freq_analog}
-  ]{matlab/butter_analog_frec_resp.m}
+  ]{matlab/filtros-digitales/plot_analog.m}
 \end{figure}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{images/respuesta_frecuencia_analog.png}
+  \includegraphics[width=\linewidth]{images/filtros-digitales/freq_analog.png}
   \caption{Respuesta en frecuencia del filtro analógico}
   \label{fig:respuesta_freq_analog}
 \end{figure}
@@ -111,20 +111,20 @@ Para demostrar que el filtro digital resultante funciona correctamente, utilizam
     language=Octave,
     caption={Graficar respuesta en frecuencia de Filtro Digital},
     label={code:respuesta_freq_digital}
-  ]{matlab/butter_digital_frec_resp.m}
+  ]{matlab/filtros-digitales/plot_digital.m}
 \end{figure}
 
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{images/respuesta_frecuencia_digital.png}
+  \includegraphics[width=\linewidth]{images/filtros-digitales/freq_digital.png}
   \caption{Respuesta en frecuencia del filtro digital}
   \label{fig:respuesta_freq_digital}
 \end{figure}
 
 \section{Estabilidad}
 La estabilidad en el contexto de filtros se refiere a la capacidad del filtro para mantenerse controlado y limitado, incluso si hay oscilaciones transitorias. El análisis de estabilidad en el diseño de filtros digitales es crucial para garantizar que el filtro sea capaz de producir respuestas predecibles y controladas en todas las situaciones. Implica evaluar si las características del filtro permiten que las señales de entrada permanezcan bajo control y no crezcan de manera incontrolada.
-Esta práctica implica verificar la ubicación de los polos y ceros para garantizar que el filtro sea estable. Las respuestas al impulso y al escalón se analizan para entender cómo el filtro responde a diferentes entradas y para asegurarse de que no haya comportamientos indeseados o inestables.
+Esta práctica implica verificar la ubicación de los polos y ceros para garantizar que el filtro sea estable. Las respuestas al impulso y al escalón se analizan para entender cómo el filtro responde a diferentes entradas y para asegurarse de que no haya comportamientos indeseados o inestables. Al final del documento, en la sección de Apéndices se pueden encontrar los scripts utilizados para realizar las gráficas de esta sección: \ref{code:script_pz} para Polos y Ceros, y \ref{code:script_impulse_step} para Respuestas al Impulso y al Escalón.
 
 \subsection*{Polos y Ceros}
 Los polos son las raíces del denominador de la función de transferencia del filtro y están relacionados con la respuesta en el tiempo. Si todos los polos están en el interior del círculo unitario en el plano Z (para sistemas discretos) o en el semiplano izquierdo en el plano S (para sistemas analógicos), el filtro es estable. Los polos en el exterior del círculo unitario o en el semiplano derecho podrían causar inestabilidad, ya que pueden llevar a respuestas que crecen de manera exponencial.
@@ -179,7 +179,7 @@ En las secciones anteriores demostramos cómo es el procedimiento para el diseñ
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=300pt]{images/diagramas-bode-filtro-bp-mejorado.png}
+  \includegraphics[width=300pt]{images/filtros-digitales/bode-bp.png}
   \caption{Respuesta en frecuencia de un filtro pasa-banda con frecuencias de parada}
   \label{fig:diagrama_bode_pasa_banda}
 \end{figure}
