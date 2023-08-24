@@ -122,8 +122,60 @@ Para demostrar que el filtro digital resultante funciona correctamente, utilizam
   \label{fig:respuesta_freq_digital}
 \end{figure}
 
+\section{Estabilidad}
+La estabilidad en el contexto de filtros se refiere a la capacidad del filtro para mantenerse controlado y limitado, incluso si hay oscilaciones transitorias. El análisis de estabilidad en el diseño de filtros digitales es crucial para garantizar que el filtro sea capaz de producir respuestas predecibles y controladas en todas las situaciones. Implica evaluar si las características del filtro permiten que las señales de entrada permanezcan bajo control y no crezcan de manera incontrolada.
+Esta práctica implica verificar la ubicación de los polos y ceros para garantizar que el filtro sea estable. Las respuestas al impulso y al escalón se analizan para entender cómo el filtro responde a diferentes entradas y para asegurarse de que no haya comportamientos indeseados o inestables.
+
+\subsection*{Polos y Ceros}
+Los polos son las raíces del denominador de la función de transferencia del filtro y están relacionados con la respuesta en el tiempo. Si todos los polos están en el interior del círculo unitario en el plano Z (para sistemas discretos) o en el semiplano izquierdo en el plano S (para sistemas analógicos), el filtro es estable. Los polos en el exterior del círculo unitario o en el semiplano derecho podrían causar inestabilidad, ya que pueden llevar a respuestas que crecen de manera exponencial.
+
+Los ceros, por otro lado, son las raíces del numerador de la función de transferencia y afectan la respuesta en frecuencia del filtro. Pueden influir en la magnitud y la fase de la respuesta en diferentes frecuencias. Sin embargo, a diferencia de los polos, los ceros por sí solos no causan inestabilidad.
+
+En la Figura \ref{fig:pz_laplace} podemos ver la representación de Polos y Ceros del filtro prototipo analógico para el plano de Laplace. Los polos obtenidos: $-0.3788 + 4.3546\times10^3i$ y $-0.3788 - 4.3546\times10^3i$, ambos tienen una parte real negativa, lo que significa que están ubicados en el semiplano izquierdo. Además de ello, ambos son conjugados. Por lo tanto, estos polos indican que el filtro Butterworth es estable en el dominio analógico.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{images/filtros-digitales/pz_laplace.png}
+  \caption{Diagramas de Polos y Ceros (Plano de Laplace)}
+  \label{fig:pz_laplace}
+\end{figure}
+
+En la Figura \ref{fig:pz_z} podemos ver la representación de Polos y Ceros del filtro prototipo pero Digital, es decir en el plano Z. Para determinar la estabilidad del filtro hay que determinar si todos los polos se encuentran dentro del circulo unitario. A simple, podemos notar que efectivamente se encuentran, pero para asegurarnos de manera analítica, necesitamos encontrar el modulo de ambos polos y determinar que sea menor a la unidad. En las Ecuaciones \ref{eq:modulo_p1} e \ref{eq:modulo_p2} vemos que el modulo de cada polo es efectivamente menor a 1. Luego podemos concluir que nuestro filtro digital es estable.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{images/filtros-digitales/pz_z.png}
+  \caption{Diagramas de Polos y Ceros (Plano Z)}
+  \label{fig:pz_z}
+\end{figure}
+
+\begin{align}
+  p_1 & = 0.9866 + 0.0981i  \rightarrow  |p_1| = 0.9904 \label{eq:modulo_p1} \\
+  p_2 & = 0.9866 - 0.0981i  \rightarrow  |p_2| = 0.9904 \label{eq:modulo_p2}
+\end{align}
+
+\subsection*{Respuesta al Impulso}
+La respuesta al impulso muestra cómo el filtro responde ante un impulso unitario, lo que revela la forma en que el sistema se comporta a lo largo del tiempo. En la Figura \ref{fig:impulse} podemos ver que al recibir la señal impulso el filtro presenta una oscilación amortiguada y eventualmente se estabiliza en 0, esto se considerara estable en el contexto de sistemas lineales y tiempo invariante. La estabilidad en sistemas lineales implica que las respuestas a entradas acotadas también son acotadas, es decir, no crecen de manera incontrolada. Si la respuesta al impulso oscila amortiguadamente y finalmente se estabiliza en 0, esto indica que las oscilaciones son amortiguadas y no crecen infinitamente con el tiempo. Esto es una característica deseable y no indica inestabilidad.
+
+\subsection*{Respuesta al Escalón}
+La respuesta al escalón muestra cómo el sistema reacciona ante un cambio abrupto en la entrada, proporcionando información sobre la velocidad de respuesta y la estabilidad a largo plazo. En la Figura \ref{fig:step} podemos ver que el filtro presenta una respuesta al escalón que muestra una oscilación amortiguada que eventualmente se estabiliza en 0. La oscilación amortiguada es una característica común de los filtros Butterworth debido a su diseño para tener una respuesta de frecuencia lo más plana posible en la banda de paso. Ya que la respuesta se mantiene bajo control y no presenta crecimiento descontrolado, el filtro se considera estable.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{images/filtros-digitales/impulse.png}
+  \caption{Respuesta al Impulso}
+  \label{fig:impulse}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{images/filtros-digitales/step.png}
+  \caption{Respuesta al Escalón}
+  \label{fig:step}
+\end{figure}
+
 \section{Conclusiones}
-En las secciones anteriores demostramos cómo es el procedimiento para el diseño de un filtro digital pasa-banda a partir de transfomaciones aplicadas a un filtro analógico pasa-bajos. Analizamos las respectivas respuestas en frecuencia de los filtros analógicos y digitales obtenidos, y podemos observar que cumplen con el requisito de filtrar aquellas frecuencias que se encuentren fuera de la banda especificada [637 [Hz] ; 757 [Hz]]. Sin embargo este proceso fue solamente para un filtro, una banda de frecuencia para una frecuencia central en particular que es la primera del espectro de la matriz \gls{dtfm}. La siguiente frecuencia en el espectro es 770 [Hz], y si observamos la Figura \ref{fig:respuesta_freq_digital} podemos ver que no está muy lejos de la \gls{fc} superior del filtro diseñado. Esto va a devenir en un solapamiento de señales, lo cual puede introducir falsos disparos a la hora de implementar la lógica para detectar el tono. Queda claro que se necesita un filtro pasa-banda pero de mayor orden y una banda más reducida. El objetivo es definir un \gls{fa} superior e inferior, y en las que el filtro atenúe en 10 [dB], y estas frecuencias tienen que ser antes de solapar con la frecuencia siguiente o anterior del espectro de la matriz. En la Figura \ref{fig:diagrama_bode_pasa_banda} podemos ver cómo sería un filtro ideal pasa-banda que cumple con esos requisitos.
+En las secciones anteriores demostramos cómo es el procedimiento para el diseño de un filtro digital pasa-banda a partir de transfomaciones aplicadas a un filtro analógico pasa-bajos. Analizamos las respectivas respuestas en frecuencia de los filtros analógicos y digitales obtenidos, así como también la estabilidad del mismo a través del análisis de Polos y Ceros, respuesta al impulso y al escalón; y podemos observar que cumplen con el requisito de filtrar aquellas frecuencias que se encuentren fuera de la banda especificada [637 [Hz] ; 757 [Hz]]. Sin embargo este proceso fue solamente para un filtro, una banda de frecuencia para una frecuencia central en particular que es la primera del espectro de la matriz \gls{dtfm}. La siguiente frecuencia en el espectro es 770 [Hz], y si observamos la Figura \ref{fig:respuesta_freq_digital} podemos ver que no está muy lejos de la \gls{fc} superior del filtro diseñado. Esto va a devenir en un solapamiento de señales, lo cual puede introducir falsos disparos a la hora de implementar la lógica para detectar el tono. Queda claro que se necesita un filtro pasa-banda pero de mayor orden y una banda más reducida. El objetivo es definir un \gls{fa} superior e inferior, y en las que el filtro atenúe en 10 [dB], y estas frecuencias tienen que ser antes de solapar con la frecuencia siguiente o anterior del espectro de la matriz. En la Figura \ref{fig:diagrama_bode_pasa_banda} podemos ver cómo sería un filtro ideal pasa-banda que cumple con esos requisitos.
 
 \begin{figure}[H]
   \centering
