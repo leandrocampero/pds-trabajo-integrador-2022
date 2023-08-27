@@ -49,6 +49,9 @@
     "**/*.xdv": true,
     "**/*.lol": true,
     "**/*.bbl": true,
-    "**/*.blg": true
+    "**/*.blg": true,
+    "**/*.slxc": true,
+    "**/*.slxc.autosave": true,
+    "**/slprj": true
   }
 }

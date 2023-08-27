@@ -5,7 +5,7 @@ Recordemos de la Figura \ref{fig:diagrama_bloques_objetivo} que nuestro sistema 
 \subsection*{Codificador y Modulador}
 Estos bloques son en realidad bastante simples. Consta de la sumatoria de dos señales sinusoidales. Para la simulación serían dos generadores establecidos en la combinación de frecuencias que corresponden a un determinado digito. Para crear la codificación, basta con ingresar ambas señales a un sumador. Esto luego debe sumarse a una señal constante de 1, con el fin de poder hacer el producto de la señal resultante con la señal portadora. El resultado de esto es la señal ya modulada, como se muestra en la Figura \ref{fig:bloques_cod_mod}.
 
-\begin{figure}[H]
+\begin{figure}[!htb]
   \centering
   \includegraphics[width=400pt]{images/desarrollo/cod_mod.png}
   \caption{Codificador y Modulador}
@@ -15,7 +15,7 @@ Estos bloques son en realidad bastante simples. Consta de la sumatoria de dos se
 \subsection*{Transmisión}
 La transmisión será simulada a través de un filtro pasa-banda, estableciendo las frecuencias de corte de tal forma que el ancho de banda sea el espectro audible por el oído humano, como muestra la Figura \ref{fig:bloques_txs}.
 
-\begin{figure}[H]
+\begin{figure}[!htb]
   \centering
   \includegraphics[width=300pt]{images/desarrollo/canal.png}
   \caption{Transmisión}
@@ -25,7 +25,7 @@ La transmisión será simulada a través de un filtro pasa-banda, estableciendo 
 \subsection*{Demodulador}
 Para demodular la señal, basta con realizar nuevamente el producto con la señal portadora. Como resultado obtenemos la frecuencia moduladora (que es la señal codificada, suma de las frecuencias que componen a un digito específico) como muestra la Figura \ref{fig:bloques_demod}. Luego debemos aplicar un filtro pasa bajos para limpiar la señal de ruidos que puedan haberse introducido, entre esos, algunos vestigios de la señal portadora.
 
-\begin{figure}[H]
+\begin{figure}[!htb]
   \centering
   \includegraphics[width=350pt]{images/desarrollo/demod.png}
   \caption{Transmisión}
@@ -35,7 +35,7 @@ Para demodular la señal, basta con realizar nuevamente el producto con la seña
 \subsection*{Decodificador}
 El bloque decodificador es el más complejo de todos, ya que este tiene la lógica para detectar las señales que componen la señal codificada. Como ya vimos en la Figura \ref{fig:diagrama_bloques_decod}, necesitamos 7 filtros pasa-banda para aislar cada una de las frecuencias de la matriz \gls{dtfm}, luego viene la matriz decodificadora. En la Figura \ref{fig:bloques_decod} vemos una simplificación de cómo estaría compuesta esta lógica de decodificación. Cada salida de control es una compuerta AND que se activara cuando sus dos entradas se encuentren activas (o en "1" lógico). Entonces cada compuerta representa la combinación de tonos para detectar cuál fué el digito enviado.
 
-\begin{figure}[H]
+\begin{figure}[!htb]
   \centering
   \includegraphics[width=350pt]{images/desarrollo/decod.png}
   \caption{Decodificador}
@@ -47,6 +47,20 @@ Como mencionamos en la sección anterior, para poder implementar los filtros dig
 
 Se puede notar en el Código \ref{code:algoritmo_principal} que establecemos el orden de los filtros en 6 (para pasa-bajos y/o pasa-altos; se interpreta 12 para pasa-banda). Este valor arbitrario, contrario a los cálculos analíticos del capítulo anterior, es empírico; durante varias pruebas de simulación, los filtros pasa-banda de alto orden (20 aproximadamente) demostraban comportamientos inesperados y no concluyentes a la hora de filtrar señales específicas. Por eso, luego de varias pruebas encontramos que el orden 6 era suficiente para realizar la simulación con resultados favorables y realistas.
 
+Es de suponer que estos filtros diseñados por matlab son estables, sin embargo no dejamos pasar la oportunidad de hacer un análisis de cada uno. Para realizarlo utilizamos una función cuyo código se puede ver en el Apendice \ref{code:script_analisis}. El resultado se puede ver en los siguientes apendices:
+
+\begin{enumerate}
+  \item Filtro pasa-banda centrado en 697 [Hz]: Apendice \ref{fig:analisis_697}.
+  \item Filtro pasa-banda centrado en 770 [Hz]: Apendice \ref{fig:analisis_770}.
+  \item Filtro pasa-banda centrado en 852 [Hz]: Apendice \ref{fig:analisis_852}.
+  \item Filtro pasa-banda centrado en 941 [Hz]: Apendice \ref{fig:analisis_941}.
+  \item Filtro pasa-banda centrado en 1209 [Hz]: Apendice \ref{fig:analisis_1209}.
+  \item Filtro pasa-banda centrado en 1336 [Hz]: Apendice \ref{fig:analisis_1336}.
+  \item Filtro pasa-banda centrado en 1477 [Hz]: Apendice \ref{fig:analisis_1477}.
+\end{enumerate}
+
+También se pueden ver los Polos y Ceros de cada filtro en el Apendice \ref{sec:pz}.
+
 \begin{figure}[H]
   \lstinputlisting[
     language=Octave,
@@ -55,7 +69,7 @@ Se puede notar en el Código \ref{code:algoritmo_principal} que establecemos el 
   ]{matlab/desarrollo/banco_decodificador.m}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[!htb]
   \centering
   \includegraphics[width=\linewidth]{images/desarrollo/freq_filtros.png}
   \caption{Respuesta en frecuencia del Banco de Filtros}
@@ -75,14 +89,14 @@ En base a los resultados obtenidos de los \textit{scripts} diseñamos el sistema
 
 La segunda parte del sistema comprende la decodificación \gls{dtfm} a través de un banco de filtros y una matriz decodificadora, como se muestra en la Figura \ref{fig:bloques_codec}. Primero debemos aislar las señales por tonos diferenciados, esto lo hace el banco de filtros digitales. Cada uno de estos es un filtro pasa-banda con frecuencia central en uno de los 7 tonos, de esta forma logramos aislar cada señal. Dado que estas son sinusoidales, necesitamos calcular el valor efectivo de las mismas para poder operar lógicamente ellas, entonces se coloca un bloque que realiza el cálculo. Luego, el valor obtenido es un número decimal, del cual nos interesa la parte entera, ya que con este dato vamos a validar la amplitud con la que la señal sale del filtro. La razón de hacer este procedimiento es que para poder comparar lógicamente las señales presente para determinar qué tono fue codificado y enviado, lo cual se explica a continuación.
 
-\begin{figure}[H]
+\begin{figure}[!htb]
   \centering
   \includegraphics[width=\linewidth]{images/desarrollo/modem.png}
   \caption{Codificación, Modulación, Transmisión y Demodulación}
   \label{fig:bloques_modem}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[!htb]
   \centering
   \includegraphics[width=\linewidth]{images/desarrollo/codec.png}
   \caption{Banco de filtros y Decodificador}
@@ -101,5 +115,65 @@ Para llevar a cabo la simulación vamos a considerar una serie de escenarios pos
 \end{enumerate}
 
 \subsection{Ancho de banda Extendido - 1 [MHz]}
+A los efectos prácticos, un canal de 1 [MHz] de ancho de banda bien podría ser considerado un canal ideal, lo que en la simulación equivaldría a no poner un filtro represtantivo del canal de transmisión. Eso significa que toda la señal que sale del modulador llega al demodulador. Sin embargo, realizaremos la simulación utilizando un filtro en el canal para obtener resultados lo más realista posible.
+
+Dado de que la frecuencia de muestreo es de 44 [kHz], y por el Teorema de Nyquist-Shannon, la máxima frecuencia a muestrear debería ser menor o igual a la mitad de la frecuencia de muestreo. Por ello vamos a tomar que el canal tiene un ancho de banda que va desde 0 [Hz] hasta 20000 [Hz]. Este será implementado con un filtro Butterworth de 2do orden pasa-bajos para obtener para obtener una respuesta plana en la banda de paso.
+
+Para realizar esta simmulación, haremos una modificación en el Código \ref{code:algoritmo_principal}, cambiaremos la banda de paso del filtro del canal con los valores \lstinline{butter(2, 22000 / (Fs / 2))}, ejecutamos el \textit{script} y probaremos enviar el número 1.
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=\linewidth]{images/simulacion/extendido/cod.png}
+  \caption{Codificación del número 1}
+  \label{fig:sim_cod}
+\end{figure}
+
+En la Figura \ref{fig:sim_cod} podemos observar la etapa de codificación. Las 2 primeras señales son la frecuencia inferior y superior que componen al número 1 (697 [Hz] y 1209 [Hz]), y la tercera es el resultado de sumar ambas señales.
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=\linewidth]{images/simulacion/extendido/modem.png}
+  \caption{Modulación, Transmisión y Demodulación}
+  \label{fig:sim_modem}
+\end{figure}
+
+En la Figura \ref{fig:sim_modem} tenemos 4 muestras. La primera es la señal modulada, es decir la portadora modulada por la señal codificada del número 1. En la segunda muestra es la misma señal pero a través del filtro represtantivo del canal. Podemos notar que son similares pero se encuentran desfasadas, y esto se debe al filtro en sí. También podemos obervar que la señal no tuvo perdidas de ganancia, mantiene la magnitud con la que salío del modulador. En la tercera muestra vemos la señal luego de ser demodulada, en la que podemos ver que no tiene la forma de la señal codificada, y esto es porque aún tiene una componente de la frecuencia de la señal portadora. En la cuarta muestra vemos que la señal ya tiene la forma de la señal codificada, esto es porque pasó por el filtro pasa-bajos a 3000 [Hz], eliminando así dicha componente.
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=\linewidth]{images/simulacion/extendido/bank.png}
+  \caption{Salida del Banco de Filtros}
+  \label{fig:sim_bank}
+\end{figure}
+
+Una vez tratada y obtenida la señal deseada, puede pasar al banco de filtros para poder aislar las señales que componen la codificación. En la figura \ref{fig:sim_bank} obervamos la respuesta de cada filtro a la señal, y podemos notar rápidamente que en los filtros de 697 [Hz] y 1209 [Hz] las salidas son con mayor intensidad (porque son las que realmente buscamos aislar), mientras que en las otras se atenúa considerablemente. En algunos filtros se atenúa más que otros y esto se debe al solapamiento que tienen los filtros debido a la proximidad de las frecuencias en cuestión.
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=\linewidth]{images/simulacion/extendido/rms.png}
+  \caption{Valor Eficaz del Banco de Filtros}
+  \label{fig:sim_rms}
+\end{figure}
+
+Luego de aislar las señales, necesitamos obtener el valor eficaz de cada salida. En la Figura \ref{fig:sim_rms} obervamos las salidas de cada bloque RMS y claramente de los filtros que no que no son de interés se obtiene valores muy pequeños en contraste con los 2 que sí nos interesa. El paso siguiente es obtener el valor númerico de esas salidas para obtener solamente la componente entera, que en nuestra simulación determina que esa señal está activa.
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=\linewidth]{images/simulacion/extendido/decod.png}
+  \caption{Decodificación de las Señales}
+  \label{fig:sim_decod}
+\end{figure}
+
+Para finalizar obersvamos las salidas de las compuertas lógicas de la matriz decodificadora. En la Figura \ref{fig:sim_decod} tenemos cada muestra dispuesta como un teclado numérico, con su etiqueta correspondiente. Notamos que la muestra del número 1 es la única que tiene valor alto (1 lógico), mientras que las otras están en 0\footnote{En algunas muestras no se logra ver la señal debido a fallas en la renderización de la gráfica, pero si fueran 1 se verían como la primera muetra}. Para mejorar la visualización del funcinamiento, en la Figura \ref{fig:sim_sim} se muestran los Visores al final del sistema, los cuales muestran los valores de las señales de la matriz decodificadora, y nuevamente, vemos que todas están en 0 con la excepción de la tecla número 1.
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=400pt]{images/simulacion/extendido/sim.png}
+  \caption{Visor de la Simulación}
+  \label{fig:sim_sim}
+\end{figure}
+
 \subsection{Ancho de banda Reducido - 3 [kHz]}
+
+
 \subsection{Canal con Fallas}
