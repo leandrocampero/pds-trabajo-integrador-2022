@@ -137,7 +137,7 @@ En la Figura \ref{fig:sim_cod} podemos observar la etapa de codificación. Las 2
   \label{fig:sim_modem}
 \end{figure}
 
-En la Figura \ref{fig:sim_modem} tenemos 4 muestras. La primera es la señal modulada, es decir la portadora modulada por la señal codificada del número 1. En la segunda muestra es la misma señal pero a través del filtro represtantivo del canal. Podemos notar que son similares pero se encuentran desfasadas, y esto se debe al filtro en sí. También podemos obervar que la señal no tuvo perdidas de ganancia, mantiene la magnitud con la que salío del modulador. En la tercera muestra vemos la señal luego de ser demodulada, en la que podemos ver que no tiene la forma de la señal codificada, y esto es porque aún tiene una componente de la frecuencia de la señal portadora. En la cuarta muestra vemos que la señal ya tiene la forma de la señal codificada, esto es porque pasó por el filtro pasa-bajos a 3000 [Hz], eliminando así dicha componente.
+En la Figura \ref{fig:sim_modem} tenemos 4 muestras. La primera es la señal modulada, es decir la portadora modulada por la señal codificada del número 1. En la segunda muestra es la misma señal pero a través del filtro represtantivo del canal. Podemos notar que son similares pero se encuentran desfasadas, y esto se debe al filtro en sí. También podemos obervar que la señal no tuvo perdidas de ganancia, mantiene la amplitud con la que salío del modulador. En la tercera muestra vemos la señal luego de ser demodulada, en la que podemos ver que no tiene la forma de la señal codificada, y esto es porque aún tiene una componente de la frecuencia de la señal portadora. En la cuarta muestra vemos que la señal ya tiene la forma de la señal codificada, esto es porque pasó por el filtro pasa-bajos a 3000 [Hz], eliminando así dicha componente.
 
 \begin{figure}[!htb]
   \centering
@@ -173,7 +173,65 @@ Para finalizar obersvamos las salidas de las compuertas lógicas de la matriz de
   \label{fig:sim_sim}
 \end{figure}
 
-\subsection{Ancho de banda Reducido - 3 [kHz]}
 
+\subsection{Ancho de banda Reducido - 3 [kHz]}
+Para esta simulación, modificamos nuevamente el Código \ref{code:algoritmo_principal} para que vuelva a operar con el canal real, establecido entre 300 [Hz] y 3500 [Hz]. Por motivos de simplicidad la simulación la vamos a analizar directamente desde el canal, ya que la etapa de codificación no se modifica.
+
+Para empezar, vamos a hacer un análisis de la estabilidad del canal ya que este ahora es diferente al canal "ideal" del apartado anterior. Para ello hicimos uso del Código \ref{code:script_analisis} y obtuvimos los resultados que se muestran en la Figura \ref{fig:real_chan}. Se puede observar que los polos indican que el filtro es estable, sumado a que la respuesta al impulso y al escalón también lo reafirman. Pero lo que llama la atención aquí es la respuesta en frecuencia del filtro. Es de esperarse que la curva tenga esa forma, ya que para eso fue diseñado, pero vemos también que está filtrando componentes de alta frecuencia, casualmente entre ellas se encuentra la señal portadora. Vamos a analizar si esto representa un problema para la simulación.
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=\linewidth]{images/simulacion/reducido/chan.png}
+  \caption{Estabilidad del Canal}
+  \label{fig:real_chan}
+\end{figure}
+
+
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=\linewidth]{images/simulacion/reducido/modem.png}
+  \caption{Modulación, Transmisión y Demodulación}
+  \label{fig:real_modem}
+\end{figure}
+
+\pagebreak
+
+En la Figura \ref{fig:real_modem} vemos que al pasar por el canal, la señal se ve drásticamente atenuada (casi 10 veces menos) lo cual ya puede significar un problema considerando que en el ejemplo anterior esto no pasaba. Luego de pasar por el demodulador, la señal parece que no sufrió ningún cambio, esto pude ocurrir porque la componente con mayor amplitud (la portadora) ha sido filtrada, con lo cual la demodulación ya no tiene sentido. Y luego pasando por el filtro que estaba destinado a filtrar la portadora, la señal pierde más ganancia. Todo parece indicar que el sistema no va a funcionar correctamente debido a que la señal llega con poca fuerza al banco de filtros.
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=\linewidth]{images/simulacion/reducido/bank.png}
+  \caption{Salida del Banco de Filtros}
+  \label{fig:real_bank}
+\end{figure}
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=\linewidth]{images/simulacion/reducido/rms.png}
+  \caption{Valor Eficaz del Banco de Filtros}
+  \label{fig:real_rms}
+\end{figure}
+
+\pagebreak
+
+Al pasar por el banco de filtros, como muestra la Figura \ref{fig:real_bank}, podemos notar que las señales son correctamente aisladas. Es decir que la señal codificada se puede detectar, pero estas tiene muy poca amplitud. Por consiguiente, el valor eficaz será aún menor y numericamente ninguna señal no conseguirá pasar la unidad (en magnitud), como se puede ver en la Figura \ref{fig:real_rms}.
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=400pt]{images/simulacion/reducido/sim.png}
+  \caption{Visor de la Simulación}
+  \label{fig:real_sim}
+\end{figure}
+
+\pagebreak
+
+En consecuencia, podemos ver en el visor del sistema (Figura \ref{fig:real_sim}) que ninguna tecla se encuentra activa, ya que las señales no tienen una amplitud adecuada para lograr activar las compuertas.
+
+Esto lo podemos analizar desde 2 puntos de vista: el sistema está mal calibrado en cuestiones de umbrales y solo necesita un ajuste (ya que las señales llegan correctamente); o bien, necesitamos aumentar la ganancia de la señal modulada enviada al canal para que el sistema siga funcionando acordementet. Empiricamente, encontramos que aumentar 20 veces la señal a la salida del modulador es suficiente para matener el sistema funcionando correctamente.
+
+\pagebreak
+
+Sin embargo, esto puede ser ineficiente. Claramente el canal de transimsión filtra la señal portadora entonces ¿Es realmente necesaria la modulación? Los sistemas \gls{am} están pensados para medios de transimsión en los que se pueden enviar frecuencias altas (como el aire). En un cable que tiene el ancho de banda de la voz (cable telefónico, por ejemplo) es innecesario el uso de la modulación en amplitud porque la portadora se pierde. Para este mismo sistema bastará envar la señal codificada pero con una amplitud lo suficientemente grande para que pueda a travesar el medio y pueda ser tratada a través del banco de filtros y las demás etapas.
 
 \subsection{Canal con Fallas}
