@@ -1,39 +1,105 @@
-% Canal con atenuacion en frecunecia, para el apartado "e" analisis.
-% PDS 2022- FACEt-UNT
 close all
-[b, a] = butter(2, [300, 3500], 's'); % Diseño analogico 2 orden
+clear
+clc
 
-[h, f] = freqs(b, a); % Respuesta en frecuencia
-plot(f, abs(h))
-title(' Respuesta Butterworth')
+Fs = 44000; % frecuencia de Muestreo Fs=44000 Hz
+Ts = 1 / Fs;
+orden = 2;
 
-% simula atenuacion entre 700 hz y 1500 hz, verificar con otras frecuencias
-[B, A] = butter(2, [700 1500], 'stop', 's')
+% Frecuencias de corte deseadas en el dominio analógico
+f_analog_bp = [300, 3500]; % Pasa Banda
+f_analog_sp = [700, 1500]; % Rechaza Banda
 
-[h, f] = freqs(B, A); % respuesta atenuada (falla del canal)
-hold on
-plot(f, abs(h), 'r') %grafica superpuesta
-legend('Canal', 'atenuacion')
-num = conv(b, B); %  Convoluciona numerdor
-den = conv(a, A); % convolucina denominador
+% Calcular la frecuencia pre-warped para cada frecuencia de corte
+f_warp_bp = (2 * Fs) .* tan(pi * f_analog_bp * Ts);
+f_warp_sp = (2 * Fs) .* tan(pi * f_analog_sp * Ts);
 
-[h, f] = freqs(num, den); % respuesta del canal con falla
-figure
-plot(f, abs(h))
+% Diseño analógico de un filtro Butterworth de 2do orden (banda de paso)
+[b, a] = butter(orden / 2, f_warp_bp, 's');
 
-sysa = tf(num, den) % funcion transferencia del canal con falla
+% Respuesta en frecuencia del filtro Butterworth analógico
+[h, f] = freqs(b, a);
+figure;
+subplot(3, 1, 1);
+plot(f / (2 * pi), abs(h));
+title('Respuesta Butterworth - Analógico');
+xlabel('Frecuencia (Hz)');
+ylabel('Amplitud');
+xlim([0, 10000]);
+grid on;
 
-[numd, dend] = bilinear(num, den, 44000)
-% pasa a filtro digital utilizando Transformada Bilineal
-% este es el canal con falla a utilizar para probar el sistema (punto e).
+% Diseño analógico de un filtro Butterworth de 2do orden (atenuación)
+[B, A] = butter(orden / 2, f_warp_sp, 'stop', 's');
 
-Fs = 44000; % frecuencia de Muestre Fs=44000 hz
-sysd = tf(numd, dend, 1 / Fs) % transferencia discreta digital
+% Respuesta en frecuencia del filtro de atenuación (analógico)
+[h, f] = freqs(B, A);
+hold on;
+plot(f / (2 * pi), abs(h), 'r');
+legend('Canal', 'Atenuación');
+xlabel('Frecuencia (Hz)');
+ylabel('Amplitud');
+xlim([0, 10000]);
+grid on;
 
-% obtiene la respuesta en frecuencia usando las frecuncias f (del analalogico) para comparar
-[hd] = freqz(numd, dend, f, 44000);
+% Convolución de los coeficientes para obtener el canal con atenuación
+num = conv(b, B);
+den = conv(a, A);
 
-hold on
-plot(f * 6.28, abs(hd), 'r') % grafica la respuesta en freuceuncia discreta para control
+% Respuesta en frecuencia del canal con atenuación (analógico)
+[h, f] = freqs(num, den);
+subplot(3, 1, 2);
+plot(f / (2 * pi), abs(h));
+title('Respuesta Canal con Atenuación - Analógico');
+xlabel('Frecuencia (Hz)');
+ylabel('Amplitud');
+xlim([0, 10000]);
+grid on;
 
-legend('Analogo', 'discreto')
+% Función de transferencia del canal con atenuación (analógico)
+sysa = tf(num, den);
+
+% Transformación Bilineal para convertir a dominio discreto
+[numd, dend] = bilinear(num, den, Fs);
+
+% Función de transferencia del canal con atenuación (discreto)
+sysd = tf(numd, dend, 1 / Fs);
+
+% Respuesta en frecuencia discreta usando las frecuencias del filtro analógico
+hd = freqz(numd, dend, f, Fs);
+
+% Gráfica comparativa de respuestas en frecuencia
+subplot(3, 1, 3);
+plot(f, abs(hd), 'r');
+title('Respuesta Canal con Atenuación - Digital');
+xlabel('Frecuencia (Hz)');
+ylabel('Amplitud');
+xlim([0, 10000]);
+grid on;
+
+sgtitle('Análisis del Canal con Atenuación en Frecuencia');
+
+% Diagrama de polos y ceros
+figure;
+subplot(3, 1, 1);
+pzmap(tf(numd, dend, 1));
+title('Diagrama de Polos y Ceros');
+
+% Respuesta al impulso
+subplot(3, 1, 2);
+impulse_response = impz(numd, dend, 200);
+stem(impulse_response);
+title('Respuesta al Impulso');
+xlabel('Muestras');
+ylabel('Amplitud');
+grid on;
+
+% Respuesta al escalón
+subplot(3, 1, 3);
+step_response = stepz(numd, dend, 200);
+stem(step_response);
+title('Respuesta al Escalón');
+xlabel('Muestras');
+ylabel('Amplitud');
+grid on;
+
+sgtitle('Establidad del Canal con Fallas');

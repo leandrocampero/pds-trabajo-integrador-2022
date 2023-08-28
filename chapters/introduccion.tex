@@ -53,3 +53,23 @@ A modo de referencia, el Cuadro \ref{tab:combinacion_tonos}, muestra la combinac
   \item Problema de análisis: para el caso de que ocurran fallos en el canal de comunicación (por ejemplo, una atenuación en determinadas frecuencias), analizar la robustez del código detector para al menos 3 zonas atenuadas de frecuencias diferentes. Utilizar el código adjunto en Matlab para el diseño del canal con fallas. Justificar los resultados.
   \item Escribir el informe, Incluir conclusiones, observaciones y sugerencias sobre los resultados obtenidos
 \end{enumerate}
+
+\section{Instrucciones de simulación}
+Para poder reproducir las simulaciones expuestas en este informe hay que tener en cuenta los siguientes archivos.
+
+\subsection*{Scripts}
+Dentro del directorio matlab se encuentran los scripts de las simulaciones. Existen subdirectorios que contienen algunas de las librerías propias utilizadas. A continuación se describen los archivos dentro del directorio:
+\begin{enumerate}
+  \item \textbf{\lstinline{sim_ideal.m}}: ejecutar este script para generar el banco de filros más el canal ideal (mayor ancho de banda).
+  \item \textbf{\lstinline{sim_real.m}}: ejecutar este script para generar el banco de filros más el canal real (ancho de banda reducido, como de un canal telefónico).
+  \item \textbf{\lstinline{sim_falla.m}}: ejecutar este script para generar el banco de filros más el canal con fallas.
+  \item \textbf{\lstinline{analisis.m}}: script utilizado para analizar uno por uno los prototipos digitales del banco de filtros.
+  \item \textbf{\lstinline{canal.m}}: script utilizado para analizar el filtro representativo del canal de transmisión. Por defecto analiza el canal con fallas pero se puede modificar.
+\end{enumerate}
+
+\subsection*{Simulink}
+Dentro del directorio matlab se encuentran los archivos del Simulink, en los que se desarrolla el sistema. Existen dos archivos:
+\begin{enumerate}
+  \item \textbf{\lstinline{simulacion_completa.slx}}: sistema para simular toda la arquitectura completa. Contiene los selectores de tonos más un selector de canal utilizado en la simulación de canal real (telefónico).
+  \item \textbf{\lstinline{simulacion_sin_am.slx}}: sistema para simular la arquitectura sin la modulación y demodulación en amplitud (más adelante se detalla la razón de esta modificación, en el Capítulo \ref{cap:desarrollo}). Contiene los mismos selectores, solo que el del canal tiene para alternar entre canal amplificado y no amplificado.
+\end{enumerate}
