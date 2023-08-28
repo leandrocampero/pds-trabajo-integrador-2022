@@ -1,4 +1,6 @@
 \chapter{Desarrollo}
+\label{cap:desarrollo}
+
 Recordemos de la Figura \ref{fig:diagrama_bloques_objetivo} que nuestro sistema está compuesto por 5 bloques. En este capítulo vamos descomponer y analizar cada bloque para su posterior implementación en la simulación.
 
 \section{Análisis}
@@ -235,3 +237,70 @@ Esto lo podemos analizar desde 2 puntos de vista: el sistema está mal calibrado
 Sin embargo, esto puede ser ineficiente. Claramente el canal de transimsión filtra la señal portadora entonces ¿Es realmente necesaria la modulación? Los sistemas \gls{am} están pensados para medios de transimsión en los que se pueden enviar frecuencias altas (como el aire). En un cable que tiene el ancho de banda de la voz (cable telefónico, por ejemplo) es innecesario el uso de la modulación en amplitud porque la portadora se pierde. Para este mismo sistema bastará envar la señal codificada pero con una amplitud lo suficientemente grande para que pueda a travesar el medio y pueda ser tratada a través del banco de filtros y las demás etapas.
 
 \subsection{Canal con Fallas}
+
+\begin{figure}[H]
+  \lstinputlisting[
+    language=Octave,
+    caption={Diseño de Filtro Digital represtantivo del canal con fallas},
+    label={code:script_channel}
+  ]{matlab/desarrollo/canal_fallas.m}
+\end{figure}
+
+Ahora vamos a simular el sistema pero con un canal que presenta fallas. Para esto utilizamos el Código \ref{code:script_channel} para diseñar el canal. Este código diseña el prototipo analógico del canal con fallas y luego le realiza una transformación bilineal para obtener el filtro digital, entonces antes que nada se necesita realizar el Pre-Warping para compensar la distorsion que genera transformación. Luego se genera el filtro analógico prototipo Butterworth pasa-banda (similar al del apartado anterior). Luego se genera otro filtro analógico Butterworth prototipo, pero este es un rechaza banda entre las frecuencias 700 [Hz] y 1500 [Hz]. Para generar el canal con fallas, se realiza la convolución de ambos filtros (numerador a numerador, denominador a denominador) para obtener el filtro analógico resultante. Luego se aplica la transformación bilineal para así obtener el filtro digital del canal con fallas. Para poder aplicar este canal tenemos que hacer un cambio en el algorítmo principal (Código \ref{code:algoritmo_principal}), en la línea 22 cambiamos a \lstinline{[f_canal_num, f_canal_den] = canal_fallas(2, Fs);}, y con esto estaríamos en condiciones de usar el mismo filtro de canal, ya que los valores de este fueron actualizados.
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=\linewidth]{images/simulacion/fallas/freq.png}
+  \caption{Respuesta en frecuencia del canal con falla}
+  \label{fig:falla_freq}
+\end{figure}
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=\linewidth]{images/simulacion/fallas/chan.png}
+  \caption{Analisis de Estabilidad del Canal con Fallas}
+  \label{fig:falla_chan}
+\end{figure}
+
+
+En la Figura \ref{fig:falla_freq} podemos ver primero la respuesta en frecuencia del filtro del canal real en contraste con la del filtro rechazabanda, la segunda curva es la convolución de ambos filtros y el resultado (que sigue siendo analógico), y finalmente vemos el filtro digital resultante. Se puede observar que la respuesta en frecuecia es similar al analógico pero con algunas irregularidades, esto no necesariamente es malo sino que podemos aprovechar para probar la robustez del sistema.
+
+\pagebreak
+
+Además de esto también realizamos en análisis de estabilidad del canal con fallas, para asegurarnos que lo es y poder probar la simulación correctamente. En la Figura \ref{fig:falla_chan} podemos ver que los polos se encuentran dentro del circulo unitario, y que las respuestas al impuslo y al escalón no crecen desmedidamente, por lo que podemos asegurar que el filtro es realmente estable.
+
+Otra cosa que podemos notar a simple vista es que la señal portadora será filtrada, al igual que en el ejemplo anterior. Entonces para esta simulación proponemos realizar una modificación al sistema, que es remover la parte de la modulación y demodulación ya que es irrelevante si la portadora va a ser filtrada. Podemos asegurar que esto no va afectar al funcionamiento ya que vimos que la portadora solo juega un papel importante para la transmisión, no así para la codificación ni decodificación.
+
+Analizando más profundamente la respuesta en frecuencia del canal, debemos recalcar que la banda de rechazo forma un valle que se extiende por todo el espectro de señales usadas para codificar. ¿Esto significa que no va a funcionar, ya que implica atenuar todas las señales que se utilizan para la codificación? No necesariamente implica que no va a funcionar, esto se debe analizar en las diferentes para poder llegar a esa conclusión. Es claro que, según la curva, las frecuencias más cercanas a 1000 [Hz] van a ser las más perjudicadas, pero ya que el filtro rechaza-banda que constituye esa parte del canal es de bajo nivel, las frencuencias en los extremos (700 [Hz] y 1500 [Hz]) tal vez sean atenuadas pero no lo suficiente para ser rechazadas por los bloques de truncamiento o redondeo. Entonces proponemos el análisis para la codificación de los números 3, 5 y 7. Esto es porque 3 se compone de las frecuencias más alejadas entre sí en el espectro (en los extremos antes mencionados), 5 porque se compone de las frecuencias centrales de cada grupo (altas y bajas) y 7 porque se compone de las frecuencias más cercanas entre grupos y son las más cercanas a la parte más atenuada de la banda de rechazo.
+
+Entonces el sistema a simular ahora quedaría modificado para no usar la modulación y demodulación, quedando solamente el filtro represtantivo del canal de transmisión con fallas, como se muestra en la Figura \ref{fig:falla_sim}. Además de esta modificación, agregamos un tercer selector, el cual alterna la señal entre el canal amplificado en 3 y el no amplificado, esto es simplemente para hacer más dinámica las pruebas. En este caso usaremos el canal amplificado.
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=400pt]{images/simulacion/fallas/sim.png}
+  \caption{Sistema Modificado sin Modulación}
+  \label{fig:falla_sim}
+\end{figure}
+
+Con esta nueva configuraciones procedemos a realizar las simulaciones para las diferentes combinaciones de tonos, es decir para todas las teclas [0-9]. Para mayor simplicidad los resultados de las simulaciones se encuentran en los siguientes Apéndices:
+\pagebreak
+\begin{enumerate}
+  \item Simulación para la Tecla 1: Apendice \ref{sec:signal_1}.
+  \item Simulación para la Tecla 2: Apendice \ref{sec:signal_2}.
+  \item Simulación para la Tecla 3: Apendice \ref{sec:signal_3}.
+  \item Simulación para la Tecla 4: Apendice \ref{sec:signal_4}.
+  \item Simulación para la Tecla 5: Apendice \ref{sec:signal_5}.
+  \item Simulación para la Tecla 6: Apendice \ref{sec:signal_6}.
+  \item Simulación para la Tecla 7: Apendice \ref{sec:signal_7}.
+  \item Simulación para la Tecla 8: Apendice \ref{sec:signal_8}.
+  \item Simulación para la Tecla 9: Apendice \ref{sec:signal_9}.
+  \item Simulación para la Tecla 0: Apendice \ref{sec:signal_0}.
+\end{enumerate}
+
+Como dijimos anteriormente, en base a la respuesta en frecuencia del filtro represtantivo del canal (Figura \ref{fig:falla_freq}) está la tendencia de que las frecuencias cercanas 1000 [Hz] sean muy atenuadas por lo que a la salida del banco de filtros no lograran encender la compuerta correspondiente de la codificación a la que pertenece. Para este ejemplo podemos analizar la Tecla 0 (Apendice \ref{sec:signal_0}), cuya frecuencia inferior es 941. Como se puede apreciar, el valor eficaz de la misma es demasiado pequeño, menor a 1, entonces no logrará activar la compuerta lógica. Pero su otra frecuencia, la superior, está más cercana a 1500 [Hz] (el extremo de la banda de rechazo), entonces logra superar el valor 1. De cualquier forma, se necesita que ambas logren pasar esa barrera para poder activar la compuerta y que se detecte se presionó tal tecla.
+
+Para la Tecla 3 (Apendice \ref{sec:signal_3}) que tiene las frecuencias (inferior y superior) más alejadas una con respecto de la otra, sí logra activar la compuerta. Esto no se debe al hecho en sí de que sean alejadas, sino de que están más cercanas a los extremos de la banda de rechazo, donde hay menor atenuación.
+
+Para la Tecla 5 (Apendice \ref{sec:signal_5}) es similar al caso anterior, pero estas frecuencias ya se acercan un poco más y se adentran más en la banda de rechazo. Sin embargo la atenuación no es suficiente para filtrarlas y que no se logre la detección de la misma. Si cabe aclarar que el valor eficaz es menor, ligeramente por encima de 1.
+
+Por último la Tecla 7 (Apendice \ref{sec:signal_7}) ya es diferente, sus señales fueron más atenuadas y los valores eficaces apenas superan los 0.8. Entonces para la compuerta lógica se toman como 0, y la hipótesis se cumple. Como están mucho más adentradas en la banda de rechazo, son atenuadas lo suficiente para que estas no logren encender la compuerta que corresponde a la tecla, y por consiguiente no se detecta que la misma haya sido oprimida.
