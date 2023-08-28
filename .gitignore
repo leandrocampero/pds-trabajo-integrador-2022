@@ -20,3 +20,6 @@
 *.lol
 *.bbl
 *.blg
+*.slxc
+*.slxc.autosave
+matlab/slprj/*
