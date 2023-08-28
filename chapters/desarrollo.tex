@@ -45,7 +45,7 @@ El bloque decodificador es el más complejo de todos, ya que este tiene la lógi
 \end{figure}
 
 \section{Diseño}
-Como mencionamos en la sección anterior, para poder implementar los filtros digitales del banco de filtros (bloque decodificador) necesitamos librerías de MATLAB para generarlos, ya que estos filtros serán de alto orden lo que es engorroso para el cálculo analítico. Para hacer uso de estas librerías se crearon 2 \textit{scripts} con el objetivo de automatizar la generación de los filtros en base a parámetros de entrada. En el Código \ref{code:banco_decodificador} podemos ver que se encarga de calcular las frecuecias de corte (inferior y superior) para cada frecuencia central provista, bajo una determinada frecuencia de muestreo y orden específico, esto para el banco de filtros del decodificador. Además de eso, también podemos ver que genera las gráficas para analizar la respuesta en frecuencia de cada filtro, como muestra la Figura \ref{fig:banco_filtros_resp_frec}. Luego en el Código \ref{code:algoritmo_principal} tenemos el algorítmo principal, el cual establece las especificaciones generales del sistema, llama a la función para crear el banco de filtros y además crea el resto de los filtros involucrados como el que representa el canal de transmición y el filtro para eleminar la portadora del espectro de trabajo (en la fase de demodulación).
+Como mencionamos en la sección anterior, para poder implementar los filtros digitales del banco de filtros (bloque decodificador) necesitamos librerías de MATLAB para generarlos, ya que estos filtros serán de alto orden lo que es engorroso para el cálculo analítico. Para hacer uso de estas librerías se crearon 2 \textit{scripts} con el objetivo de automatizar la generación de los filtros en base a parámetros de entrada. En el Código \ref{code:banco_decodificador} podemos ver que se encarga de calcular las frecuecias de corte (inferior y superior) para cada frecuencia central provista, bajo una determinada frecuencia de muestreo y orden específico, esto para el banco de filtros del decodificador. Además de eso, también podemos ver que genera las gráficas para analizar la respuesta en frecuencia de cada filtro, como muestra la Figura \ref{fig:banco_filtros_resp_frec}. Luego en el Código \ref{code:algoritmo_principal} tenemos el algorítmo principal, el cual establece las especificaciones generales del sistema, llama a la función para crear el banco de filtros y además crea el resto de los filtros involucrados como el que representa el canal de transmisión y el filtro para eleminar la portadora del espectro de trabajo (en la fase de demodulación).
 
 Se puede notar en el Código \ref{code:algoritmo_principal} que establecemos el orden de los filtros en 6 (para pasa-bajos y/o pasa-altos; se interpreta 12 para pasa-banda). Este valor arbitrario, contrario a los cálculos analíticos del capítulo anterior, es empírico; durante varias pruebas de simulación, los filtros pasa-banda de alto orden (20 aproximadamente) demostraban comportamientos inesperados y no concluyentes a la hora de filtrar señales específicas. Por eso, luego de varias pruebas encontramos que el orden 6 era suficiente para realizar la simulación con resultados favorables y realistas.
 
@@ -83,7 +83,7 @@ También se pueden ver los Polos y Ceros de cada filtro en el Apendice \ref{sec:
     language=Octave,
     caption={Algorítmo principal},
     label={code:algoritmo_principal}
-  ]{matlab/main.m}
+  ]{matlab/desarrollo/principal.m}
 \end{figure}
 
 \section{Prototipo}
@@ -121,7 +121,7 @@ A los efectos prácticos, un canal de 1 [MHz] de ancho de banda bien podría ser
 
 Dado de que la frecuencia de muestreo es de 44 [kHz], y por el Teorema de Nyquist-Shannon, la máxima frecuencia a muestrear debería ser menor o igual a la mitad de la frecuencia de muestreo. Por ello vamos a tomar que el canal tiene un ancho de banda que va desde 0 [Hz] hasta 20000 [Hz]. Este será implementado con un filtro Butterworth de 2do orden pasa-bajos para obtener para obtener una respuesta plana en la banda de paso.
 
-Para realizar esta simmulación, haremos una modificación en el Código \ref{code:algoritmo_principal}, cambiaremos la banda de paso del filtro del canal con los valores \lstinline{butter(2, 22000 / (Fs / 2))}, ejecutamos el \textit{script} y probaremos enviar el número 1.
+Para realizar esta simmulación, haremos una modificación en el Código \ref{code:algoritmo_principal}, cambiaremos la banda de paso del filtro del canal con los valores \lstinline{butter(2, 20000 / (Fs / 2))}, ejecutamos el \textit{script} y probaremos enviar el número 1.
 
 \begin{figure}[!htb]
   \centering

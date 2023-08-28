@@ -32,7 +32,7 @@ El sistema de codificación DTMF (Doble Tonos Múltiples Frecuencias), utiliza u
 
 Figura 1.1:
 
-![Diagrama de bloques](./images/diagramas-bloques.png "Diagrama de bloques")
+![Diagrama de bloques](./images/planteamiento/bloques.png "Diagrama de bloques")
 
 El objetivo principal de este proyecto integrador es la implementación del sistema mostrado en la Figura 1.1, utilizando MATLAB, SIMULINK, o la combinación de ambos recursos de modelado computacional, para el envı́o de números (0-9) codificados en DTMF bajo modulación AM, y la detección del número enviado a la salida (uno número cada por vez).
 A modo de referencia, el Cuadro 1.1, muestra la combinación de tonos audibles asociados al conjunto numérico, y en el enlace indicado se encuentra la información ampliada sobre la codificación DTMF.
