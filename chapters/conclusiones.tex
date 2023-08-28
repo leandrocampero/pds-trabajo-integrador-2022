@@ -1,8 +1,29 @@
 % Conclusiones
 \chapter{Conclusiones}
 \section{Resultados}
-Aquí explicas tu metodología de investigación.
+Luego de haber completado el desarrollo de la simulación y analizar los resultados obtenidos podemos concluir que es posible implementar este sistema en el mundo real. La decodificación es exitosa para el caso ideal, esto significa que el banco de filtros presenta el comportamiento esperado, dando respuestas correctas y acptables para las diferentes señales emitidas que se encuentren dentro de la banca de paso de cada uno de ellos. Si bien no pudimos utilizar filtros de alto nivel debido a complicaciones con el Simulink, usar filtros de orden 6 fueron suficientes para poder filtrar correctamente las señales de interés.
+
+Así también, probamos que es posible simular un canal ideal, un canal con banda de ancha similar a un cable telefónico y un canal similar pero con fallas, utlizando filtros pasa-banda y rechazabanda. Claramente el canal ideal es lo mejor para la simulación, pero en el mundo real nos tenemos que adaptar e idear soluciones reales, por lo que simular este tipo de caso fue necesario para darnos cuenta que los sistemas de control requieren ajustes para adaptarse a los ambientes reales.
 
 \section{Aplicaciones}
+Las posbles aplicaciones para este sistema pueden ser interminables, la premisa es que se requiera un control por teclado númerico y se establezca la comunicación entre un transmisor y receptor que se encuentren relativamente alejados. El medio de transmisión puede variar pero eso se puede ajustar como ya vimos en la simulación. A continuación enumaramos algunos ejemplos.
 
-\section{Problemas en la práctica}
+\subsection*{Sistemas de Alarma y Seguridad}
+Se pueden implementar sistemas de alarma que permitan la activación y desactivación remota utilizando tonos DTMF como códigos de acceso. Esos códigos transmitidos por tonos pueden abrir puertas o portones de forma remota, por ejemplo.
+
+\subsection*{Automatización Industrial}
+En el ámbito industrial se pueden controlar procesos industriales y maquinaria utilizando señales DTMF para encender, apagar o ajustar parámetros. Por ejemplo, controlar y monitorear vehículos en una flota, como activar alarmas, bloquear o desbloquear puertas, a través de tonos DTMF.
+
+\subsection*{Sistemas de Domótica}
+Una aplicación de menor escala puede ser implementar sistemas de automatización en el hogar para controlar luces, termostatos, cortinas, etc., mediante señales DTMF. También se utilizan estas señales para controlar dispositivos como televisores, reproductores de DVD, sistemas de entretenimiento en el hogar, etc.
+
+\section{Problemáticas}
+Al implementar cualquier solución a un problema real utilizando este sistema van a surgir complicaciones, y estas están asociadas al ajuste de parámetros o la arquitectura en sí. Es decir, no es lo mismo implementar este sistema para Dómotica que puede tranquilamente mediante la transmisión por aire, que un sistema para automatización industrial que conviene utilizar cables para una transmisión directa. En cada caso, la arquitectura del sistema deberá modificarse. Dependiendo del medio, tal vez sea importante amplificar las señales para compensar la perdida por el medio de transmisión. También hay que considerar que las señales de codificación de mayor frecuencia (tono superior) pueden tener pérdidas en lineas largas de conexión telefónica, por lo que normalmente deberían ser de 1,5\% (2db) mayor con respecto de los tonos bajos.
+Otra consideración es que simulink nos limita con respecto al orden de los filtros dentro del banco de filtros. Si esta simulación fuera a través de Matlab únicamente, podríamos implementar filtros de mucho más orden para hacerlos más selectivos, y con ello ajustar mejor los parámetros de redondeo o truncamiento para obtener mejores resultados.
+
+\section{Conceptos}
+Además de todo el análisis y desarrollo que llevamos a cabo en este proyecto, debemos destacar otros aspectos del mismo. Hemos desarrollado habilidades que nos permitieron realizar a conciencia este proyecto, tales como el uso de Matlab con sus correspondientes herramientas (Simulink, FDATools, etc.). Estas últimas nos permitieron hacer un diseño y análisis propicio para cada uno de los filtros.
+
+Se pusieron en práctica todos los conocimientos adquiridos durante el cursado de la materia, los cuales nos proporcionaron bases sólidas para que la realización de este proyecto se ejecute de manera eficiente. Esto, además, nos permitió tomar un problema propuesto y llevarlo a la práctica simulada pudiendo obtener los resultados más próximos a los reales. Además estos conocimientos fueron de gran ayuda para resolver los distintos problemas que se nos fueron planteando en el transcurso del desarrollo del banco de filtros digitales.
+
+Este presente proyecto significó un desafío para nosotros, que nos obligó a forjar criterios de ingeniería para desarrollar soluciones a problemas reales.
